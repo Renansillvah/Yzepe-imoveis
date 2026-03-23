@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import {
   ArrowLeft, MapPin, Maximize, CheckCircle, MessageCircle,
   Phone, ChevronLeft, ChevronRight, Star, AlertTriangle, Tag, Share2,
@@ -95,8 +96,32 @@ export default function DetalheImovel() {
     }
   }
 
+  // SEO dinâmico
+  const finalidadeTexto = imovel.finalidade === 'Aluguel' ? 'para alugar' : 'à venda'
+  const seoTitle = `${imovel.tipo} ${finalidadeTexto} em ${imovel.cidade} | Yzepe Imóveis`
+  const seoDescription = imovel.descricao
+    ? imovel.descricao.slice(0, 155) + (imovel.descricao.length > 155 ? '...' : '')
+    : `${imovel.tipo} ${finalidadeTexto} em ${imovel.cidade}${imovel.bairro ? `, ${imovel.bairro}` : ''}. ${imovel.area > 0 ? `Área: ${imovel.area} m².` : ''} Confira na Yzepe Imóveis!`
+  const seoImage = imagens[0] || ''
+
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>{seoTitle}</title>
+        <meta name="description" content={seoDescription} />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href={urlAtual} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={seoTitle} />
+        <meta property="og:description" content={seoDescription} />
+        <meta property="og:url" content={urlAtual} />
+        {seoImage && <meta property="og:image" content={seoImage} />}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={seoTitle} />
+        <meta name="twitter:description" content={seoDescription} />
+        {seoImage && <meta name="twitter:image" content={seoImage} />}
+      </Helmet>
+
       {/* Modal de Compartilhamento */}
       {modalCompartilhar && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 px-4" onClick={() => setModalCompartilhar(false)}>

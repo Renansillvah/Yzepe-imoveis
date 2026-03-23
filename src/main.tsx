@@ -2,6 +2,7 @@ import { StrictMode, lazy, Suspense } from "react"
 import { createRoot } from "react-dom/client"
 import { BrowserRouter } from "react-router-dom"
 import { ThemeProvider } from "next-themes"
+import { HelmetProvider } from "react-helmet-async"
 
 import "./index.css"
 import { ErrorBoundary } from "./components/error-boundary"
@@ -62,18 +63,20 @@ const App = lazy(() => import("./App.tsx"))
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ErrorBoundary>
-      <BrowserRouter>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
-          <Suspense fallback={
-            <div className="flex h-screen w-full items-center justify-center">
-              <Spinner className="size-10 text-primary" />
-            </div>
-          }>
-            <App />
-          </Suspense>
-        </ThemeProvider>
-      </BrowserRouter>
-    </ErrorBoundary>
+    <HelmetProvider>
+      <ErrorBoundary>
+        <BrowserRouter>
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+            <Suspense fallback={
+              <div className="flex h-screen w-full items-center justify-center">
+                <Spinner className="size-10 text-primary" />
+              </div>
+            }>
+              <App />
+            </Suspense>
+          </ThemeProvider>
+        </BrowserRouter>
+      </ErrorBoundary>
+    </HelmetProvider>
   </StrictMode>
 )

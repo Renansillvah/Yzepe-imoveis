@@ -61,6 +61,7 @@ export default function Sobre() {
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-5 leading-tight">
               Yzepe Imóveis:<br />Seu parceiro em Toledo MG
             </h2>
+            <h3 className="sr-only">Imóveis à venda em Toledo MG — Terrenos, Chácaras e Sítios</h3>
             <p className="text-muted-foreground mb-4 leading-relaxed">
               Somos especializados em terrenos, lotes, chácaras, sítios e casas em Toledo MG e toda a região sul de Minas Gerais. Com mais de 4 anos de experiência, ajudamos famílias a realizarem o sonho da casa própria ou do imóvel rural.
             </p>

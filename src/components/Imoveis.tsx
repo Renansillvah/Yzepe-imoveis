@@ -54,10 +54,10 @@ export default function Imoveis() {
             Portfólio
           </span>
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
-            Imóveis Disponíveis
+            Imóveis em Toledo MG e Região
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto text-sm">
-            Terrenos, chácaras, sítios e casas em Toledo MG e cidades da região.
+            Terrenos à venda em Toledo MG, chácaras na região de Toledo MG, sítios e casas. Encontre as melhores oportunidades.
           </p>
         </div>
 
