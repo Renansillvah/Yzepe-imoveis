@@ -249,16 +249,18 @@ export default function Imoveis() {
 
         {/* CTA ver mais */}
         <div className="text-center mt-12">
-          <a
-            href="https://wa.me/5535998309575?text=Olá,%20vim%20pelo%20site%20e%20quero%20ver%20mais%20imóveis"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Button
+            variant="outline"
+            size="lg"
+            className="border-border hover:border-accent hover:text-accent font-semibold gap-2"
+            onClick={() => {
+              const el = document.getElementById('imoveis')
+              if (el) el.scrollIntoView({ behavior: 'smooth' })
+            }}
           >
-            <Button variant="outline" size="lg" className="border-border hover:border-accent hover:text-accent font-semibold gap-2">
-              Ver todos os imóveis
-              <ArrowRight size={16} />
-            </Button>
-          </a>
+            Ver todos os imóveis
+            <ArrowRight size={16} />
+          </Button>
         </div>
       </div>
     </section>
