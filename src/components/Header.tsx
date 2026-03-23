@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Phone, Mail, Menu, X, MapPin, Instagram, Facebook } from 'lucide-react'
+import { Phone, Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 export default function Header() {
@@ -20,51 +20,15 @@ export default function Header() {
 
   return (
     <header className="w-full">
-      {/* Top bar */}
-      <div className="bg-primary text-primary-foreground py-2 px-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between text-xs">
-          <div className="flex items-center gap-5">
-            <a
-              href="tel:+5535998309575"
-              className="flex items-center gap-1.5 font-medium text-accent hover:opacity-80 transition-opacity"
-            >
-              <Phone size={12} className="flex-shrink-0" />
-              <span>(35) 99830-9575</span>
-            </a>
-            <a
-              href="mailto:contato@yzepeimoveis.com.br"
-              className="hidden sm:flex items-center gap-1 opacity-70 hover:opacity-100 transition-opacity"
-            >
-              <Mail size={12} />
-              contato@yzepeimoveis.com.br
-            </a>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="hidden sm:flex items-center gap-1 opacity-70">
-              <MapPin size={12} />
-              <span>Toledo - MG · Atendemos toda região</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 hover:text-accent transition-all">
-                <Instagram size={13} />
-              </a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 hover:text-accent transition-all">
-                <Facebook size={13} />
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Main nav */}
       <div className={`bg-card sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'shadow-lg border-b border-border' : 'shadow-sm'}`}>
-        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <img
               src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/1db82708-e438-45d8-8291-2da28cbd784a.png"
               alt="Yzepe Imóveis"
-              className="h-14 w-auto object-contain"
+              className="h-16 w-auto object-contain"
             />
           </div>
 

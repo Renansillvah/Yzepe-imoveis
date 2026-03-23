@@ -72,7 +72,7 @@ export default function PainelAdmin() {
           </div>
           <div className="flex items-center gap-2">
             <Link to="/" target="_blank">
-              <Button size="sm" variant="outline" className="border-white/20 text-primary-foreground hover:bg-white/10 text-xs gap-1.5">
+              <Button size="sm" variant="outline" className="border-white/40 bg-white/10 text-white hover:bg-white/20 hover:border-white/60 text-xs gap-1.5 font-semibold">
                 <Eye size={13} />
                 Ver site
               </Button>
@@ -80,7 +80,7 @@ export default function PainelAdmin() {
             <Button
               size="sm"
               variant="outline"
-              className="border-white/20 text-primary-foreground hover:bg-white/10 text-xs gap-1.5"
+              className="border-white/40 bg-white/10 text-white hover:bg-white/20 hover:border-white/60 text-xs gap-1.5 font-semibold"
               onClick={handleLogout}
             >
               <LogOut size={13} />

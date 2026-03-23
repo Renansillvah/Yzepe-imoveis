@@ -3,7 +3,7 @@ import { Award, Users, ThumbsUp, Star, MessageCircle, MapPin, TrendingUp } from 
 const autoridade = [
   { valor: '+80', label: 'Imóveis Disponíveis', icon: TrendingUp },
   { valor: '+300', label: 'Clientes Atendidos', icon: Users },
-  { valor: '+10', label: 'Anos de Experiência', icon: Award },
+  { valor: '+4', label: 'Anos de Experiência', icon: Award },
   { valor: '100%', label: 'Atendimento via WhatsApp', icon: MessageCircle },
 ]
 
@@ -62,7 +62,7 @@ export default function Sobre() {
               Yzepe Imóveis:<br />Seu parceiro em Toledo MG
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              Somos especializados em terrenos, lotes, chácaras, sítios e casas em Toledo MG e toda a região sul de Minas Gerais. Com mais de 10 anos de experiência, ajudamos famílias a realizarem o sonho da casa própria ou do imóvel rural.
+              Somos especializados em terrenos, lotes, chácaras, sítios e casas em Toledo MG e toda a região sul de Minas Gerais. Com mais de 4 anos de experiência, ajudamos famílias a realizarem o sonho da casa própria ou do imóvel rural.
             </p>
             <p className="text-muted-foreground leading-relaxed">
               Atuamos com imóveis para compra, venda e locação — sempre com documentação regularizada, escritura garantida e opções de financiamento e parcelamento para facilitar a sua compra.

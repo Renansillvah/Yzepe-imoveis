@@ -99,8 +99,9 @@ export default function Imoveis() {
               key={imovel.id}
               className="overflow-hidden hover:shadow-2xl transition-all duration-300 group border-border hover:-translate-y-1"
             >
-              {/* Imagem */}
-              <div className="relative h-52 overflow-hidden">
+              {/* Imagem clicável */}
+              <Link to={`/imovel/${imovel.id}`} className="block">
+              <div className="relative h-52 overflow-hidden cursor-pointer">
                 <img
                   src={imovel.imagens[0] || 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80'}
                   alt={imovel.titulo}
@@ -144,9 +145,12 @@ export default function Imoveis() {
                   </span>
                 </div>
               </div>
+              </Link>
 
               <CardContent className="p-4">
-                <h3 className="font-semibold text-foreground mb-1.5 leading-snug text-sm">{imovel.titulo}</h3>
+                <Link to={`/imovel/${imovel.id}`} className="block hover:text-accent transition-colors">
+                  <h3 className="font-semibold text-foreground mb-1.5 leading-snug text-sm hover:text-accent transition-colors">{imovel.titulo}</h3>
+                </Link>
                 <div className="flex items-center gap-1 text-muted-foreground text-xs mb-3">
                   <MapPin size={11} />
                   {imovel.bairro && `${imovel.bairro}, `}{imovel.cidade}

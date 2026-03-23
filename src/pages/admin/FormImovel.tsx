@@ -94,8 +94,8 @@ export default function FormImovel() {
   const adicionarImagem = () => {
     const url = novaImagem.trim()
     if (!url) return
-    if (form.imagens.length >= 8) {
-      toast.error('Máximo de 8 imagens por imóvel')
+    if (form.imagens.length >= 30) {
+      toast.error('Máximo de 30 imagens por imóvel')
       return
     }
     set('imagens', [...form.imagens, url])
@@ -159,7 +159,7 @@ export default function FormImovel() {
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link to="/admin/painel">
-              <Button size="sm" variant="outline" className="border-white/20 text-primary-foreground hover:bg-white/10 gap-1.5 text-xs">
+              <Button size="sm" variant="outline" className="border-white/40 bg-white/10 text-white hover:bg-white/20 hover:border-white/60 gap-1.5 text-xs font-semibold">
                 <ArrowLeft size={13} />
                 Voltar
               </Button>
@@ -346,7 +346,7 @@ export default function FormImovel() {
             <CardHeader className="pb-3">
               <CardTitle className="text-base flex items-center gap-2">
                 <ImagePlus size={16} className="text-accent" />
-                Imagens ({form.imagens.length}/8)
+                Imagens ({form.imagens.length}/30)
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">

@@ -104,14 +104,10 @@ export default function Hero() {
             href="https://wa.me/5535998309575?text=Olá,%20vim%20pelo%20site%20e%20quero%20mais%20informações"
             target="_blank"
             rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-[#25D366] text-white font-semibold text-sm px-7 py-3 rounded-md shadow-lg hover:bg-[#1ebe5a] transition-all"
           >
-            <Button
-              variant="outline"
-              className="border-white/40 text-white hover:bg-white/10 font-semibold text-sm px-7 py-5 gap-2"
-            >
-              <MessageCircle size={16} />
-              WhatsApp
-            </Button>
+            <MessageCircle size={16} />
+            WhatsApp
           </a>
         </div>
       </div>
