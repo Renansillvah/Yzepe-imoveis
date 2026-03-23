@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import {
   ArrowLeft, MapPin, Maximize, CheckCircle, MessageCircle,
-  Phone, ChevronLeft, ChevronRight, Star, AlertTriangle, Tag, Share2
+  Phone, ChevronLeft, ChevronRight, Star, AlertTriangle, Tag, Share2,
+  Copy, X, Facebook, Twitter, Send
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -50,20 +51,110 @@ export default function DetalheImovel() {
     .filter((i) => i.id !== imovel.id && i.tipo === imovel.tipo && i.status === 'Disponível')
     .slice(0, 3)
 
+  const [modalCompartilhar, setModalCompartilhar] = useState(false)
+
   const whatsappMsg = `Olá, tenho interesse neste imóvel: ${imovel.titulo}`
   const whatsappUrl = `https://wa.me/5535998309575?text=${encodeURIComponent(whatsappMsg)}`
 
+  const urlAtual = window.location.href
+  const textoCompartilhar = `Confira este imóvel: ${imovel.titulo} - ${urlAtual}`
+
+  const compartilharWhatsApp = () => {
+    window.open(`https://wa.me/?text=${encodeURIComponent(textoCompartilhar)}`, '_blank')
+  }
+
+  const compartilharFacebook = () => {
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(urlAtual)}`, '_blank')
+  }
+
+  const compartilharTwitter = () => {
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(textoCompartilhar)}`, '_blank')
+  }
+
+  const compartilharTelegram = () => {
+    window.open(`https://t.me/share/url?url=${encodeURIComponent(urlAtual)}&text=${encodeURIComponent(imovel.titulo)}`, '_blank')
+  }
+
+  const copiarLink = () => {
+    navigator.clipboard.writeText(urlAtual)
+    toast.success('Link copiado!')
+    setModalCompartilhar(false)
+  }
+
   const compartilhar = () => {
     if (navigator.share) {
-      navigator.share({ title: imovel.titulo, url: window.location.href })
+      navigator.share({ title: imovel.titulo, url: urlAtual })
     } else {
-      navigator.clipboard.writeText(window.location.href)
-      toast.success('Link copiado!')
+      setModalCompartilhar(true)
     }
   }
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Modal de Compartilhamento */}
+      {modalCompartilhar && (
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 px-4" onClick={() => setModalCompartilhar(false)}>
+          <div
+            className="bg-card border border-border rounded-2xl p-6 w-full max-w-sm shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-5">
+              <h3 className="font-bold text-foreground text-base">Compartilhar imóvel</h3>
+              <button onClick={() => setModalCompartilhar(false)} className="text-muted-foreground hover:text-foreground transition-colors">
+                <X size={18} />
+              </button>
+            </div>
+            <div className="grid grid-cols-4 gap-3 mb-5">
+              <button
+                onClick={compartilharWhatsApp}
+                className="flex flex-col items-center gap-2 p-3 rounded-xl hover:bg-muted transition-colors"
+              >
+                <div className="w-12 h-12 rounded-full bg-[#25D366] flex items-center justify-center shadow-md">
+                  <MessageCircle size={22} className="text-white" />
+                </div>
+                <span className="text-xs text-muted-foreground font-medium">WhatsApp</span>
+              </button>
+              <button
+                onClick={compartilharFacebook}
+                className="flex flex-col items-center gap-2 p-3 rounded-xl hover:bg-muted transition-colors"
+              >
+                <div className="w-12 h-12 rounded-full bg-[#1877F2] flex items-center justify-center shadow-md">
+                  <Facebook size={22} className="text-white" />
+                </div>
+                <span className="text-xs text-muted-foreground font-medium">Facebook</span>
+              </button>
+              <button
+                onClick={compartilharTwitter}
+                className="flex flex-col items-center gap-2 p-3 rounded-xl hover:bg-muted transition-colors"
+              >
+                <div className="w-12 h-12 rounded-full bg-black flex items-center justify-center shadow-md">
+                  <Twitter size={22} className="text-white" />
+                </div>
+                <span className="text-xs text-muted-foreground font-medium">X / Twitter</span>
+              </button>
+              <button
+                onClick={compartilharTelegram}
+                className="flex flex-col items-center gap-2 p-3 rounded-xl hover:bg-muted transition-colors"
+              >
+                <div className="w-12 h-12 rounded-full bg-[#229ED9] flex items-center justify-center shadow-md">
+                  <Send size={22} className="text-white" />
+                </div>
+                <span className="text-xs text-muted-foreground font-medium">Telegram</span>
+              </button>
+            </div>
+            <div className="flex items-center gap-2 p-3 bg-muted rounded-xl">
+              <p className="text-xs text-muted-foreground flex-1 truncate">{urlAtual}</p>
+              <button
+                onClick={copiarLink}
+                className="flex items-center gap-1.5 text-xs font-semibold text-accent hover:text-accent/80 transition-colors flex-shrink-0"
+              >
+                <Copy size={14} />
+                Copiar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Header simples */}
       <header className="bg-card border-b border-border sticky top-0 z-50 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -296,7 +387,15 @@ export default function DetalheImovel() {
                   </a>
                 </div>
 
-                <p className="text-xs text-muted-foreground text-center mt-4">
+                <button
+                  onClick={() => setModalCompartilhar(true)}
+                  className="flex items-center justify-center gap-2 w-full py-2.5 px-6 rounded-xl border border-border text-muted-foreground font-medium text-sm hover:border-accent hover:text-accent transition-all mt-1"
+                >
+                  <Share2 size={15} />
+                  Compartilhar este imóvel
+                </button>
+
+                <p className="text-xs text-muted-foreground text-center mt-3">
                   Atendimento rápido e personalizado
                 </p>
               </div>

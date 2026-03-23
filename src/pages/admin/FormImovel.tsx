@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import {
   ArrowLeft, Save, Plus, X, ImagePlus, Star, AlertTriangle,
-  Home, Upload, Link as LinkIcon, Loader2
+  Home, Upload, Link as LinkIcon, Loader2, Crown
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -79,37 +79,42 @@ export default function FormImovel() {
   const [novoDiferencial, setNovoDiferencial] = useState('')
   const [salvando, setSalvando] = useState(false)
   const [uploadando, setUploadando] = useState(false)
+  const [carregado, setCarregado] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const { imoveis, loading } = useImoveis()
 
   useEffect(() => {
     if (sessionStorage.getItem('admin_auth') !== 'true') {
       navigate('/admin')
       return
     }
-    if (isEdicao && id) {
-      const imovel = getImovel(id)
-      if (imovel) {
-        setForm({
-          titulo: imovel.titulo,
-          preco: imovel.preco.toString(),
-          tipo: imovel.tipo,
-          cidade: imovel.cidade,
-          bairro: imovel.bairro,
-          area: imovel.area.toString(),
-          descricao: imovel.descricao,
-          imagens: imovel.imagens,
-          status: imovel.status,
-          finalidade: imovel.finalidade,
-          destaque: imovel.destaque,
-          urgencia: imovel.urgencia,
-          diferenciais: imovel.diferenciais,
-        })
-      } else {
-        toast.error('Imóvel não encontrado')
-        navigate('/admin/painel')
-      }
+  }, [navigate])
+
+  useEffect(() => {
+    if (!isEdicao || !id || loading || carregado) return
+    const imovel = getImovel(id)
+    if (imovel) {
+      setForm({
+        titulo: imovel.titulo,
+        preco: imovel.preco.toString(),
+        tipo: imovel.tipo,
+        cidade: imovel.cidade,
+        bairro: imovel.bairro,
+        area: imovel.area.toString(),
+        descricao: imovel.descricao,
+        imagens: imovel.imagens,
+        status: imovel.status,
+        finalidade: imovel.finalidade,
+        destaque: imovel.destaque,
+        urgencia: imovel.urgencia,
+        diferenciais: imovel.diferenciais,
+      })
+      setCarregado(true)
+    } else if (!loading && imoveis.length > 0) {
+      toast.error('Imóvel não encontrado')
+      navigate('/admin/painel')
     }
-  }, [id, isEdicao, getImovel, navigate])
+  }, [id, isEdicao, getImovel, navigate, loading, imoveis, carregado])
 
   const set = (field: keyof FormData, value: FormData[keyof FormData]) => {
     setForm((prev) => ({ ...prev, [field]: value }))
@@ -128,6 +133,15 @@ export default function FormImovel() {
 
   const removerImagem = (index: number) => {
     set('imagens', form.imagens.filter((_, i) => i !== index))
+  }
+
+  const definirPrincipal = (index: number) => {
+    if (index === 0) return
+    const novas = [...form.imagens]
+    const [principal] = novas.splice(index, 1)
+    novas.unshift(principal)
+    set('imagens', novas)
+    toast.success('Imagem definida como principal!')
   }
 
   const handleUploadArquivo = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -498,24 +512,39 @@ export default function FormImovel() {
               </div>
 
               {form.imagens.length > 0 && (
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  {form.imagens.map((img, index) => (
-                    <div key={index} className="relative group rounded-lg overflow-hidden bg-muted aspect-video">
-                      <img src={img} alt={`Imagem ${index + 1}`} className="w-full h-full object-cover" />
-                      {index === 0 && (
-                        <span className="absolute top-1 left-1 bg-accent text-accent-foreground text-xs px-1.5 py-0.5 rounded font-semibold">
-                          Principal
-                        </span>
-                      )}
-                      <button
-                        type="button"
-                        onClick={() => removerImagem(index)}
-                        className="absolute top-1 right-1 bg-black/60 text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500"
-                      >
-                        <X size={12} />
-                      </button>
-                    </div>
-                  ))}
+                <div>
+                  <p className="text-xs text-muted-foreground mb-2">Clique em <Crown size={11} className="inline" /> para definir como capa principal</p>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    {form.imagens.map((img, index) => (
+                      <div key={index} className="relative group rounded-lg overflow-hidden bg-muted aspect-video">
+                        <img src={img} alt={`Imagem ${index + 1}`} className="w-full h-full object-cover" />
+                        {index === 0 && (
+                          <span className="absolute top-1 left-1 bg-accent text-accent-foreground text-xs px-1.5 py-0.5 rounded font-semibold flex items-center gap-1">
+                            <Crown size={10} />
+                            Principal
+                          </span>
+                        )}
+                        {index !== 0 && (
+                          <button
+                            type="button"
+                            onClick={() => definirPrincipal(index)}
+                            title="Definir como principal"
+                            className="absolute top-1 left-1 bg-black/60 text-white rounded px-1.5 py-0.5 text-xs opacity-0 group-hover:opacity-100 transition-opacity hover:bg-accent flex items-center gap-1"
+                          >
+                            <Crown size={10} />
+                            Principal
+                          </button>
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => removerImagem(index)}
+                          className="absolute top-1 right-1 bg-black/60 text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500"
+                        >
+                          <X size={12} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
             </CardContent>
