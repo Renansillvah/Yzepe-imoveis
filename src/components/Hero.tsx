@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Search, Home, Building2, CheckCircle, MessageCircle, MapPin, ArrowRight } from 'lucide-react'
+import { Search, Home, Building2, CheckCircle, MessageCircle, MapPin, ArrowRight, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 const tiposImovel = ['Todos', 'Casa', 'Terreno', 'Lote', 'Loteamento', 'Chácara', 'Sítio']
@@ -20,8 +20,6 @@ export default function Hero() {
   const [tipo, setTipo] = useState('Todos')
   const [cidade, setCidade] = useState('Todas as cidades')
   const [bairro, setBairro] = useState('')
-  const [precoMin, setPrecoMin] = useState('')
-  const [precoMax, setPrecoMax] = useState('')
   const [diferenciais, setDiferenciais] = useState<string[]>([])
 
   const toggleDiferencial = (d: string) => {
@@ -37,221 +35,211 @@ export default function Hero() {
 
   return (
     <section
-      className="relative min-h-[92vh] flex items-center"
+      className="relative flex flex-col justify-between"
       style={{
+        minHeight: '96vh',
         backgroundImage: `url('https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/ff02bd4f-ed7c-4cd6-98aa-9bc86c099e15.jpg')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
       }}
     >
-      {/* Overlay leve — valoriza a imagem sem esconder */}
+      {/* Overlay escuro uniforme para leitura */}
       <div
         className="absolute inset-0"
-        style={{
-          background: 'linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.15) 100%)',
-        }}
+        style={{ background: 'rgba(0,0,0,0.42)' }}
       />
 
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 py-16 md:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      {/* CONTEÚDO PRINCIPAL — centralizado verticalmente */}
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-4 pt-20 pb-8">
 
-          {/* Lado esquerdo - Texto */}
-          <div>
-            {/* Badges de autoridade */}
-            <div className="flex flex-wrap gap-2 mb-8">
-              {[
-                { icon: CheckCircle, text: '+80 imóveis disponíveis' },
-                { icon: MessageCircle, text: 'Atendimento rápido' },
-                { icon: MapPin, text: 'Toledo MG e região' },
-              ].map((item) => {
-                const Icon = item.icon
-                return (
-                  <div
-                    key={item.text}
-                    className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm border border-white/25 rounded-full px-3 py-1.5 text-xs text-white font-medium"
-                  >
-                    <Icon size={12} className="text-accent" />
-                    {item.text}
-                  </div>
-                )
-              })}
-            </div>
-
-            {/* Título principal */}
-            <h1 className="text-4xl md:text-5xl lg:text-[3.4rem] font-serif font-bold text-white leading-tight mb-5 drop-shadow-lg">
-              Terrenos, chácaras e imóveis<br />
-              <span className="text-accent">em Toledo MG</span> e região
-            </h1>
-            <p className="text-white/85 text-base md:text-lg leading-relaxed mb-8 max-w-md drop-shadow">
-              Negócios seguros, atendimento direto e as melhores oportunidades da região.
-            </p>
-
-            <div className="flex flex-wrap gap-3">
-              <Button
-                onClick={handleBuscar}
-                className="bg-accent text-accent-foreground hover:opacity-90 font-bold text-sm px-6 py-5 shadow-lg gap-2"
+        {/* Badges de autoridade */}
+        <div className="flex flex-wrap justify-center gap-2 mb-7">
+          {[
+            { icon: CheckCircle, text: '+80 imóveis disponíveis' },
+            { icon: MessageCircle, text: 'Atendimento rápido' },
+            { icon: MapPin, text: 'Toledo MG e região' },
+          ].map((item) => {
+            const Icon = item.icon
+            return (
+              <div
+                key={item.text}
+                className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm border border-white/25 rounded-full px-3 py-1.5 text-xs text-white font-medium"
               >
-                <Search size={16} />
-                Ver Imóveis
-                <ArrowRight size={15} />
-              </Button>
-              <a
-                href="https://wa.me/5535998309575?text=Olá,%20vim%20pelo%20site%20e%20quero%20mais%20informações"
-                target="_blank"
-                rel="noopener noreferrer"
+                <Icon size={12} className="text-accent" />
+                {item.text}
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Título */}
+        <h1
+          className="font-serif font-bold text-white leading-tight mb-4 drop-shadow-lg"
+          style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', maxWidth: '720px' }}
+        >
+          Terrenos, chácaras e imóveis<br />
+          <span className="text-accent">em Toledo MG</span> e região
+        </h1>
+
+        {/* Subtítulo */}
+        <p
+          className="text-white/85 text-base md:text-lg leading-relaxed mb-8 drop-shadow"
+          style={{ maxWidth: '480px' }}
+        >
+          Negócios seguros, atendimento direto e as melhores oportunidades da região.
+        </p>
+
+        {/* Botões CTA */}
+        <div className="flex flex-wrap justify-center gap-3">
+          <Button
+            onClick={handleBuscar}
+            className="bg-accent text-accent-foreground hover:opacity-90 font-bold text-sm px-7 py-5 shadow-lg gap-2"
+          >
+            <Search size={16} />
+            Ver Imóveis
+            <ArrowRight size={15} />
+          </Button>
+          <a
+            href="https://wa.me/5535998309575?text=Olá,%20vim%20pelo%20site%20e%20quero%20mais%20informações"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button
+              variant="outline"
+              className="border-white/40 text-white hover:bg-white/10 font-semibold text-sm px-7 py-5 gap-2"
+            >
+              <MessageCircle size={16} />
+              WhatsApp
+            </Button>
+          </a>
+        </div>
+      </div>
+
+      {/* FILTRO — ancorado na base da hero */}
+      <div className="relative z-10 w-full px-4 pb-6">
+        <div
+          className="max-w-5xl mx-auto rounded-xl shadow-2xl overflow-hidden"
+          style={{
+            background: 'rgba(255,255,255,0.92)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255,255,255,0.7)',
+          }}
+        >
+          {/* Toggle Comprar / Alugar */}
+          <div className="flex border-b border-black/8">
+            {(['Comprar', 'Alugar'] as const).map((f) => (
+              <button
+                key={f}
+                onClick={() => setFinalidade(f)}
+                className={`px-6 py-2.5 text-xs font-bold transition-colors flex items-center gap-1.5 ${
+                  finalidade === f
+                    ? 'bg-primary text-primary-foreground'
+                    : 'text-muted-foreground hover:bg-black/5'
+                }`}
               >
-                <Button
-                  variant="outline"
-                  className="border-white/40 text-white hover:bg-white/10 font-semibold text-sm px-6 py-5 gap-2"
-                >
-                  <MessageCircle size={16} />
-                  WhatsApp
-                </Button>
-              </a>
-            </div>
+                {f === 'Comprar' ? <Home size={13} /> : <Building2 size={13} />}
+                {f}
+              </button>
+            ))}
           </div>
 
-          {/* Lado direito - Caixa de busca estilo glass */}
-          <div
-            className="rounded-2xl shadow-2xl overflow-hidden"
-            style={{
-              background: 'rgba(255,255,255,0.88)',
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
-              border: '1px solid rgba(255,255,255,0.6)',
-            }}
-          >
-            {/* Toggle Comprar / Alugar */}
-            <div className="flex" style={{ borderBottom: '1px solid rgba(0,0,0,0.08)' }}>
-              {(['Comprar', 'Alugar'] as const).map((f) => (
-                <button
-                  key={f}
-                  onClick={() => setFinalidade(f)}
-                  className={`flex-1 py-3.5 text-sm font-bold transition-colors flex items-center justify-center gap-2 ${
-                    finalidade === f
-                      ? 'bg-primary text-primary-foreground'
-                      : 'text-muted-foreground hover:bg-black/5'
-                  }`}
-                  style={{ background: finalidade === f ? undefined : 'transparent' }}
+          {/* Linha de filtros inline */}
+          <div className="flex flex-wrap lg:flex-nowrap items-end gap-3 px-4 py-3">
+
+            {/* Tipo de imóvel */}
+            <div className="flex-1 min-w-[130px]">
+              <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block mb-1">
+                Tipo
+              </label>
+              <div className="relative">
+                <select
+                  value={tipo}
+                  onChange={(e) => setTipo(e.target.value)}
+                  className="w-full border border-input rounded-lg px-3 py-2 text-sm bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-ring appearance-none pr-8"
                 >
-                  {f === 'Comprar' ? <Home size={15} /> : <Building2 size={15} />}
-                  {f}
-                </button>
-              ))}
+                  {tiposImovel.map((t) => (
+                    <option key={t} value={t}>{t}</option>
+                  ))}
+                </select>
+                <ChevronDown size={13} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+              </div>
             </div>
 
-            <div className="p-5 space-y-4">
-              {/* Tipo de imóvel */}
-              <div>
-                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide block mb-2">
-                  Tipo de imóvel
-                </label>
-                <div className="flex flex-wrap gap-1.5">
-                  {tiposImovel.map((t) => (
-                    <button
-                      key={t}
-                      onClick={() => setTipo(t)}
-                      className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
-                        tipo === t
-                          ? 'bg-primary text-primary-foreground border-primary'
-                          : 'border-border text-foreground hover:border-accent hover:text-accent'
-                      }`}
-                    >
-                      {t}
-                    </button>
+            {/* Cidade */}
+            <div className="flex-1 min-w-[150px]">
+              <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block mb-1">
+                Cidade
+              </label>
+              <div className="relative">
+                <select
+                  value={cidade}
+                  onChange={(e) => setCidade(e.target.value)}
+                  className="w-full border border-input rounded-lg px-3 py-2 text-sm bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-ring appearance-none pr-8"
+                >
+                  {cidades.map((c) => (
+                    <option key={c} value={c}>{c}</option>
                   ))}
-                </div>
+                </select>
+                <ChevronDown size={13} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
               </div>
+            </div>
 
-              {/* Cidade e Bairro */}
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide block mb-1">
-                    Cidade
-                  </label>
-                  <select
-                    value={cidade}
-                    onChange={(e) => setCidade(e.target.value)}
-                    className="w-full border border-input rounded-lg px-3 py-2 text-sm bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                  >
-                    {cidades.map((c) => (
-                      <option key={c} value={c}>{c}</option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide block mb-1">
-                    Bairro
-                  </label>
-                  <input
-                    type="text"
-                    value={bairro}
-                    onChange={(e) => setBairro(e.target.value)}
-                    placeholder="Digite o bairro..."
-                    className="w-full border border-input rounded-lg px-3 py-2 text-sm bg-white text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                  />
-                </div>
-              </div>
+            {/* Bairro */}
+            <div className="flex-1 min-w-[130px]">
+              <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block mb-1">
+                Bairro
+              </label>
+              <input
+                type="text"
+                value={bairro}
+                onChange={(e) => setBairro(e.target.value)}
+                placeholder="Digite o bairro..."
+                className="w-full border border-input rounded-lg px-3 py-2 text-sm bg-white text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+              />
+            </div>
 
-              {/* Faixa de preço */}
-              <div>
-                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide block mb-1">
-                  Faixa de preço
-                </label>
-                <div className="grid grid-cols-2 gap-3">
-                  <input
-                    type="text"
-                    value={precoMin}
-                    onChange={(e) => setPrecoMin(e.target.value)}
-                    placeholder="Mínimo"
-                    className="w-full border border-input rounded-lg px-3 py-2 text-sm bg-white text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                  />
-                  <input
-                    type="text"
-                    value={precoMax}
-                    onChange={(e) => setPrecoMax(e.target.value)}
-                    placeholder="Máximo"
-                    className="w-full border border-input rounded-lg px-3 py-2 text-sm bg-white text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                  />
-                </div>
-              </div>
-
-              {/* Diferenciais */}
-              <div>
-                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide block mb-2">
-                  Diferenciais
-                </label>
-                <div className="flex flex-wrap gap-1.5">
-                  {['Aceita financiamento', 'Com escritura', 'Aceita parcelamento'].map((d) => (
+            {/* Diferenciais */}
+            <div className="flex-1 min-w-[180px]">
+              <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block mb-1">
+                Diferenciais
+              </label>
+              <div className="flex flex-wrap gap-1">
+                {['Financiamento', 'Escritura', 'Parcelamento'].map((d, i) => {
+                  const fullLabel = ['Aceita financiamento', 'Com escritura', 'Aceita parcelamento'][i]
+                  return (
                     <button
                       key={d}
-                      onClick={() => toggleDiferencial(d)}
-                      className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
-                        diferenciais.includes(d)
+                      onClick={() => toggleDiferencial(fullLabel)}
+                      className={`px-2.5 py-1 rounded-full text-[11px] font-semibold border transition-colors ${
+                        diferenciais.includes(fullLabel)
                           ? 'bg-accent text-accent-foreground border-accent'
                           : 'border-border text-foreground hover:border-accent'
                       }`}
                     >
-                      {diferenciais.includes(d) ? '✓ ' : ''}{d}
+                      {diferenciais.includes(fullLabel) ? '✓ ' : ''}{d}
                     </button>
-                  ))}
-                </div>
+                  )
+                })}
               </div>
+            </div>
 
-              {/* Botão buscar */}
+            {/* Botão buscar */}
+            <div className="flex-shrink-0">
               <Button
                 onClick={handleBuscar}
-                className="w-full bg-primary text-primary-foreground hover:opacity-80 font-bold text-sm py-5 shadow-lg gap-2"
+                className="bg-primary text-primary-foreground hover:opacity-80 font-bold text-sm px-6 py-2 h-9 gap-2 whitespace-nowrap shadow"
               >
-                <Search size={18} />
+                <Search size={15} />
                 Buscar Imóveis
               </Button>
             </div>
-          </div>
 
+          </div>
         </div>
       </div>
+
     </section>
   )
 }
