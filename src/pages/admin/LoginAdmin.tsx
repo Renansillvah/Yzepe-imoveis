@@ -20,6 +20,12 @@ export default function LoginAdmin() {
     setCarregando(true)
 
     try {
+      if (!supabase) {
+        toast.error('Erro de configuração. Contate o suporte.')
+        setCarregando(false)
+        return
+      }
+
       const { data, error } = await supabase
         .from('admins')
         .select('id, usuario, nome')
