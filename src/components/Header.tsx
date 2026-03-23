@@ -28,9 +28,9 @@ export default function Header() {
             <img
               src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/1db82708-e438-45d8-8291-2da28cbd784a.png"
               alt="Yzepe Imóveis"
-              style={{ height: '220px', width: 'auto', objectFit: 'contain', position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: 0 }}
+              style={{ height: '280px', width: 'auto', objectFit: 'contain', position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: 0 }}
             />
-            <div style={{ width: '220px', height: '16px' }} />
+            <div style={{ width: '280px', height: '16px' }} />
           </div>
 
           {/* Desktop nav */}
