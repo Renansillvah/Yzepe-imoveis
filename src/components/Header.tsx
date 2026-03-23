@@ -1,9 +1,16 @@
-import { useState } from 'react'
-import { Phone, Mail, Menu, X, MapPin } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Phone, Mail, Menu, X, MapPin, Instagram, Facebook } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id)
@@ -15,56 +22,69 @@ export default function Header() {
     <header className="w-full">
       {/* Top bar */}
       <div className="bg-primary text-primary-foreground py-2 px-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between text-sm">
-          <div className="flex items-center gap-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-between text-xs">
+          <div className="flex items-center gap-5">
             <a
               href="tel:+5535998309575"
-              className="flex items-center gap-1.5 font-semibold text-accent hover:opacity-80 transition-opacity"
+              className="flex items-center gap-1.5 font-medium text-accent hover:opacity-80 transition-opacity"
             >
-              <Phone size={14} className="flex-shrink-0" />
+              <Phone size={12} className="flex-shrink-0" />
               <span>(35) 99830-9575</span>
             </a>
             <a
               href="mailto:contato@yzepeimoveis.com.br"
-              className="hidden sm:flex items-center gap-1 opacity-80 hover:opacity-100 transition-opacity"
+              className="hidden sm:flex items-center gap-1 opacity-70 hover:opacity-100 transition-opacity"
             >
-              <Mail size={13} />
+              <Mail size={12} />
               contato@yzepeimoveis.com.br
             </a>
           </div>
-          <div className="flex items-center gap-1 text-accent font-medium">
-            <MapPin size={13} />
-            <span>Toledo - MG · Atendemos toda região</span>
+          <div className="flex items-center gap-4">
+            <div className="hidden sm:flex items-center gap-1 opacity-70">
+              <MapPin size={12} />
+              <span>Toledo - MG · Atendemos toda região</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 hover:text-accent transition-all">
+                <Instagram size={13} />
+              </a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="opacity-70 hover:opacity-100 hover:text-accent transition-all">
+                <Facebook size={13} />
+              </a>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Main nav */}
-      <div className="bg-card shadow-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
+      <div className={`bg-card sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'shadow-lg border-b border-border' : 'shadow-sm'}`}>
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <img
-              src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/750e9e48-8561-4ea5-92e0-a52b75fca13c.png"
+              src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/90dad176-ca11-41d6-b9e6-9d6327666d33.png"
               alt="Yzepe Imóveis"
-              className="h-16 w-auto object-contain"
+              className="h-14 w-auto object-contain"
             />
           </div>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-            <button onClick={() => scrollTo('imoveis')} className="text-foreground hover:text-accent transition-colors">
-              Imóveis
-            </button>
-            <button onClick={() => scrollTo('sobre')} className="text-foreground hover:text-accent transition-colors">
-              Sobre
-            </button>
-            <button onClick={() => scrollTo('servicos')} className="text-foreground hover:text-accent transition-colors">
-              Serviços
-            </button>
-            <button onClick={() => scrollTo('contato')} className="text-foreground hover:text-accent transition-colors">
-              Contato
-            </button>
+          <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
+            {[
+              { label: 'Imóveis', id: 'imoveis' },
+              { label: 'Sobre', id: 'sobre' },
+              { label: 'Serviços', id: 'servicos' },
+              { label: 'Contato', id: 'contato' },
+            ].map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollTo(item.id)}
+                className="text-foreground hover:text-accent transition-colors relative group"
+              >
+                {item.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
+              </button>
+            ))}
           </nav>
 
           <div className="hidden md:flex items-center gap-2">
@@ -72,15 +92,15 @@ export default function Header() {
               <Button
                 size="sm"
                 variant="outline"
-                className="border-accent text-accent hover:bg-accent hover:text-accent-foreground font-semibold gap-1.5"
+                className="border-border text-foreground hover:border-accent hover:text-accent font-medium gap-1.5 text-xs"
               >
-                <Phone size={14} />
+                <Phone size={13} />
                 (35) 99830-9575
               </Button>
             </a>
             <Button
               size="sm"
-              className="bg-accent text-accent-foreground hover:opacity-90 font-semibold shadow-md"
+              className="bg-primary text-primary-foreground hover:opacity-80 font-semibold shadow-sm text-xs px-4"
               onClick={() => scrollTo('contato')}
             >
               Fale Conosco
@@ -88,23 +108,36 @@ export default function Header() {
           </div>
 
           {/* Mobile menu toggle */}
-          <button className="md:hidden text-foreground" onClick={() => setMenuOpen(!menuOpen)}>
-            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          <button className="md:hidden text-foreground p-1" onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
 
         {/* Mobile menu */}
         {menuOpen && (
-          <div className="md:hidden bg-card border-t border-border px-4 py-4 flex flex-col gap-4">
-            <a href="tel:+5535998309575" className="flex items-center gap-2 text-accent font-semibold">
-              <Phone size={16} />
+          <div className="md:hidden bg-card border-t border-border px-4 py-5 flex flex-col gap-4">
+            <a href="tel:+5535998309575" className="flex items-center gap-2 text-accent font-semibold text-sm">
+              <Phone size={15} />
               (35) 99830-9575
             </a>
-            <button onClick={() => scrollTo('imoveis')} className="text-foreground text-left py-1 font-medium">Imóveis</button>
-            <button onClick={() => scrollTo('sobre')} className="text-foreground text-left py-1 font-medium">Sobre</button>
-            <button onClick={() => scrollTo('servicos')} className="text-foreground text-left py-1 font-medium">Serviços</button>
-            <button onClick={() => scrollTo('contato')} className="text-foreground text-left py-1 font-medium">Contato</button>
-            <Button className="bg-accent text-accent-foreground font-semibold w-full shadow-md" onClick={() => scrollTo('contato')}>
+            {[
+              { label: 'Imóveis', id: 'imoveis' },
+              { label: 'Sobre', id: 'sobre' },
+              { label: 'Serviços', id: 'servicos' },
+              { label: 'Contato', id: 'contato' },
+            ].map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollTo(item.id)}
+                className="text-foreground text-left py-1.5 font-medium text-sm border-b border-border/50 last:border-0"
+              >
+                {item.label}
+              </button>
+            ))}
+            <Button
+              className="bg-primary text-primary-foreground font-semibold w-full shadow-md mt-1"
+              onClick={() => scrollTo('contato')}
+            >
               Fale Conosco
             </Button>
           </div>
