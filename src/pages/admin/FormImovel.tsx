@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import {
   ArrowLeft, Save, Plus, X, ImagePlus, Star, AlertTriangle,
-  Home
+  Home, Upload, Link as LinkIcon, Loader2
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useImoveis, type Imovel } from '@/contexts/ImoveisContext'
 import { toast } from 'sonner'
+import { supabaseAdmin } from '@/lib/supabase'
 
 const TIPOS = ['Casa', 'Terreno', 'Lote', 'Loteamento', 'Chácara', 'Sítio'] as const
 
@@ -77,6 +78,8 @@ export default function FormImovel() {
   const [novaImagem, setNovaImagem] = useState('')
   const [novoDiferencial, setNovoDiferencial] = useState('')
   const [salvando, setSalvando] = useState(false)
+  const [uploadando, setUploadando] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (sessionStorage.getItem('admin_auth') !== 'true') {
@@ -125,6 +128,62 @@ export default function FormImovel() {
 
   const removerImagem = (index: number) => {
     set('imagens', form.imagens.filter((_, i) => i !== index))
+  }
+
+  const handleUploadArquivo = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (!files || files.length === 0) return
+    if (!supabaseAdmin) {
+      toast.error('Erro de configuração. Contate o suporte.')
+      return
+    }
+
+    const arquivos = Array.from(files)
+    const limite = 30 - form.imagens.length
+    if (arquivos.length > limite) {
+      toast.error(`Você pode adicionar no máximo ${limite} imagem(ns) mais`)
+      return
+    }
+
+    setUploadando(true)
+    const novasUrls: string[] = []
+
+    for (const arquivo of arquivos) {
+      if (!arquivo.type.startsWith('image/')) {
+        toast.error(`${arquivo.name} não é uma imagem válida`)
+        continue
+      }
+      if (arquivo.size > 10 * 1024 * 1024) {
+        toast.error(`${arquivo.name} excede 10MB`)
+        continue
+      }
+
+      const ext = arquivo.name.split('.').pop()
+      const nome = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
+
+      const { data, error } = await supabaseAdmin.storage
+        .from('imoveis-imagens')
+        .upload(nome, arquivo, { upsert: false })
+
+      if (error) {
+        toast.error(`Erro ao enviar ${arquivo.name}`)
+        continue
+      }
+
+      const { data: urlData } = supabaseAdmin.storage
+        .from('imoveis-imagens')
+        .getPublicUrl(data.path)
+
+      novasUrls.push(urlData.publicUrl)
+    }
+
+    if (novasUrls.length > 0) {
+      set('imagens', [...form.imagens, ...novasUrls])
+      toast.success(`${novasUrls.length} imagem(ns) adicionada(s) com sucesso!`)
+    }
+
+    setUploadando(false)
+    if (fileInputRef.current) fileInputRef.current.value = ''
   }
 
   const adicionarDiferencial = () => {
@@ -379,14 +438,54 @@ export default function FormImovel() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex gap-2">
-                <Input
-                  value={novaImagem}
-                  onChange={(e) => setNovaImagem(e.target.value)}
-                  placeholder="Cole a URL da imagem (https://...)"
-                  onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), adicionarImagem())}
-                  className="flex-1"
+              {/* Upload do computador */}
+              <div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  className="hidden"
+                  onChange={handleUploadArquivo}
                 />
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploadando || form.imagens.length >= 30}
+                  className="w-full flex flex-col items-center justify-center gap-2 p-6 rounded-lg border-2 border-dashed border-border hover:border-accent hover:bg-accent/5 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {uploadando ? (
+                    <>
+                      <Loader2 size={28} className="text-accent animate-spin" />
+                      <span className="text-sm font-medium text-foreground">Enviando imagens...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Upload size={28} className="text-muted-foreground" />
+                      <span className="text-sm font-medium text-foreground">Clique para selecionar fotos do computador</span>
+                      <span className="text-xs text-muted-foreground">JPG, PNG, WEBP até 10MB por foto • Várias fotos de uma vez</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {/* Ou por URL */}
+              <div className="flex items-center gap-2">
+                <div className="flex-1 h-px bg-border" />
+                <span className="text-xs text-muted-foreground px-2">ou cole um link</span>
+                <div className="flex-1 h-px bg-border" />
+              </div>
+              <div className="flex gap-2">
+                <div className="relative flex-1">
+                  <LinkIcon size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                  <Input
+                    value={novaImagem}
+                    onChange={(e) => setNovaImagem(e.target.value)}
+                    placeholder="Cole a URL da imagem (https://...)"
+                    onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), adicionarImagem())}
+                    className="pl-9"
+                  />
+                </div>
                 <Button
                   type="button"
                   onClick={adicionarImagem}
@@ -397,7 +496,6 @@ export default function FormImovel() {
                   Adicionar
                 </Button>
               </div>
-              <p className="text-xs text-muted-foreground">Cole links de imagens do Google, Unsplash ou outro serviço</p>
 
               {form.imagens.length > 0 && (
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
