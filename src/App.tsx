@@ -15,6 +15,7 @@ import WhatsAppFlutuante from '@/components/WhatsAppFlutuante'
 
 // Páginas
 import DetalheImovel from '@/pages/DetalheImovel'
+import Sitemap from '@/pages/Sitemap'
 
 // Admin
 import LoginAdmin from '@/pages/admin/LoginAdmin'
@@ -44,6 +45,7 @@ function App() {
         {/* Site público */}
         <Route path="/" element={<SitePublico />} />
         <Route path="/imovel/:id" element={<DetalheImovel />} />
+        <Route path="/sitemap.xml" element={<Sitemap />} />
 
         {/* Admin */}
         <Route path="/admin" element={<LoginAdmin />} />

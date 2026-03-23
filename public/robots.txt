@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Sitemap dinâmico (atualizado automaticamente com todos os imóveis)
+Sitemap: https://fzidmwnhyxmdwaupgzxr.supabase.co/functions/v1/sitemap
+
+# Sitemap estático de fallback
 Sitemap: https://yzepe-imoveis.vercel.app/sitemap.xml
