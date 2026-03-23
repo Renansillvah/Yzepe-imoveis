@@ -15,7 +15,7 @@ export default function Footer() {
             <img
               src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/1db82708-e438-45d8-8291-2da28cbd784a.png"
               alt="Yzepe Imóveis"
-              className="h-14 w-auto object-contain mb-5"
+              className="h-20 w-auto object-contain mb-5"
             />
             <p className="text-primary-foreground/60 text-sm leading-relaxed max-w-xs mb-6">
               Especialistas em terrenos, chácaras, sítios e imóveis residenciais em Toledo MG e toda a região sul de Minas Gerais.

@@ -77,7 +77,7 @@ export default function DetalheImovel() {
           <img
             src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/1db82708-e438-45d8-8291-2da28cbd784a.png"
             alt="Yzepe Imóveis"
-            className="h-10 w-auto object-contain"
+            className="h-14 w-auto object-contain"
           />
           <button
             onClick={compartilhar}

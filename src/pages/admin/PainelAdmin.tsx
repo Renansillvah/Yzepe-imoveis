@@ -13,7 +13,7 @@ import { toast } from 'sonner'
 
 export default function PainelAdmin() {
   const navigate = useNavigate()
-  const { imoveis, deleteImovel } = useImoveis()
+  const { imoveis, loading, deleteImovel } = useImoveis()
   const [busca, setBusca] = useState('')
   const [confirmarDelete, setConfirmarDelete] = useState<string | null>(null)
 
@@ -28,10 +28,14 @@ export default function PainelAdmin() {
     navigate('/admin')
   }
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (confirmarDelete === id) {
-      deleteImovel(id)
-      toast.success('Imóvel excluído com sucesso')
+      try {
+        await deleteImovel(id)
+        toast.success('Imóvel excluído com sucesso')
+      } catch {
+        toast.error('Erro ao excluir imóvel')
+      }
       setConfirmarDelete(null)
     } else {
       setConfirmarDelete(id)
@@ -63,7 +67,7 @@ export default function PainelAdmin() {
             <img
               src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/1db82708-e438-45d8-8291-2da28cbd784a.png"
               alt="Yzepe Imóveis"
-              className="h-10 w-auto object-contain brightness-0 invert"
+              className="h-14 w-auto object-contain brightness-0 invert"
             />
             <div className="hidden sm:block">
               <span className="text-xs text-primary-foreground/60 block">Painel</span>
@@ -164,7 +168,14 @@ export default function PainelAdmin() {
         </div>
 
         {/* Lista de imóveis */}
-        {filtrados.length === 0 ? (
+        {loading ? (
+          <Card className="border-border">
+            <CardContent className="py-16 text-center">
+              <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+              <p className="text-muted-foreground text-sm">Carregando imóveis...</p>
+            </CardContent>
+          </Card>
+        ) : filtrados.length === 0 ? (
           <Card className="border-border">
             <CardContent className="py-16 text-center">
               <Home size={40} className="text-muted-foreground/30 mx-auto mb-3" />

@@ -118,7 +118,7 @@ export default function FormImovel() {
     set('diferenciais', form.diferenciais.filter((x) => x !== d))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!form.titulo || !form.preco || !form.cidade) {
       toast.error('Preencha os campos obrigatórios')
@@ -140,16 +140,21 @@ export default function FormImovel() {
       urgencia: form.urgencia,
       diferenciais: form.diferenciais,
     }
-    setTimeout(() => {
+    try {
       if (isEdicao && id) {
-        updateImovel(id, dados)
+        await updateImovel(id, dados)
         toast.success('Imóvel atualizado com sucesso!')
       } else {
-        addImovel(dados)
+        await addImovel(dados)
         toast.success('Imóvel cadastrado com sucesso!')
       }
       navigate('/admin/painel')
-    }, 500)
+    } catch (err) {
+      toast.error('Erro ao salvar imóvel. Tente novamente.')
+      console.error(err)
+    } finally {
+      setSalvando(false)
+    }
   }
 
   return (

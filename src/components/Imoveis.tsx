@@ -24,7 +24,7 @@ function formatArea(area: number) {
 }
 
 export default function Imoveis() {
-  const { imoveis } = useImoveis()
+  const { imoveis, loading } = useImoveis()
   const [filtro, setFiltro] = useState('Todos')
   const [finalidade, setFinalidade] = useState<'Todos' | 'Venda' | 'Aluguel'>('Todos')
   const [favoritos, setFavoritos] = useState<string[]>([])
@@ -92,8 +92,24 @@ export default function Imoveis() {
           ))}
         </div>
 
+        {/* Loading */}
+        {loading && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="rounded-xl border border-border overflow-hidden animate-pulse">
+                <div className="h-52 bg-muted" />
+                <div className="p-4 space-y-3">
+                  <div className="h-4 bg-muted rounded w-3/4" />
+                  <div className="h-3 bg-muted rounded w-1/2" />
+                  <div className="h-6 bg-muted rounded w-1/3 mt-4" />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {!loading && <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((imovel) => (
             <Card
               key={imovel.id}
@@ -222,9 +238,9 @@ export default function Imoveis() {
               </CardContent>
             </Card>
           ))}
-        </div>
+        </div>}
 
-        {filtered.length === 0 && (
+        {!loading && filtered.length === 0 && (
           <div className="text-center py-16 text-muted-foreground">
             <div className="text-4xl mb-3 opacity-30">⌂</div>
             Nenhum imóvel encontrado com os filtros selecionados.
