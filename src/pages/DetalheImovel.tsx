@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import {
   ArrowLeft, MapPin, Maximize, CheckCircle, MessageCircle,
   Phone, ChevronLeft, ChevronRight, Star, AlertTriangle, Tag, Share2,
-  Copy, X, Facebook, Twitter, Send
+  Copy, X, Facebook, Twitter, Send, Instagram
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -81,6 +81,12 @@ export default function DetalheImovel() {
     setModalCompartilhar(false)
   }
 
+  const compartilharInstagram = () => {
+    navigator.clipboard.writeText(urlAtual)
+    toast.success('Link copiado! Cole no Instagram Stories ou na bio.')
+    setModalCompartilhar(false)
+  }
+
   const compartilhar = () => {
     if (navigator.share) {
       navigator.share({ title: imovel.titulo, url: urlAtual })
@@ -104,40 +110,49 @@ export default function DetalheImovel() {
                 <X size={18} />
               </button>
             </div>
-            <div className="grid grid-cols-4 gap-3 mb-5">
+            <div className="grid grid-cols-5 gap-2 mb-5">
               <button
                 onClick={compartilharWhatsApp}
-                className="flex flex-col items-center gap-2 p-3 rounded-xl hover:bg-muted transition-colors"
+                className="flex flex-col items-center gap-2 p-2 rounded-xl hover:bg-muted transition-colors"
               >
-                <div className="w-12 h-12 rounded-full bg-[#25D366] flex items-center justify-center shadow-md">
-                  <MessageCircle size={22} className="text-white" />
+                <div className="w-11 h-11 rounded-full bg-[#25D366] flex items-center justify-center shadow-md">
+                  <MessageCircle size={20} className="text-white" />
                 </div>
                 <span className="text-xs text-muted-foreground font-medium">WhatsApp</span>
               </button>
               <button
-                onClick={compartilharFacebook}
-                className="flex flex-col items-center gap-2 p-3 rounded-xl hover:bg-muted transition-colors"
+                onClick={compartilharInstagram}
+                className="flex flex-col items-center gap-2 p-2 rounded-xl hover:bg-muted transition-colors"
               >
-                <div className="w-12 h-12 rounded-full bg-[#1877F2] flex items-center justify-center shadow-md">
-                  <Facebook size={22} className="text-white" />
+                <div className="w-11 h-11 rounded-full flex items-center justify-center shadow-md" style={{ background: 'radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%)' }}>
+                  <Instagram size={20} className="text-white" />
+                </div>
+                <span className="text-xs text-muted-foreground font-medium">Instagram</span>
+              </button>
+              <button
+                onClick={compartilharFacebook}
+                className="flex flex-col items-center gap-2 p-2 rounded-xl hover:bg-muted transition-colors"
+              >
+                <div className="w-11 h-11 rounded-full bg-[#1877F2] flex items-center justify-center shadow-md">
+                  <Facebook size={20} className="text-white" />
                 </div>
                 <span className="text-xs text-muted-foreground font-medium">Facebook</span>
               </button>
               <button
                 onClick={compartilharTwitter}
-                className="flex flex-col items-center gap-2 p-3 rounded-xl hover:bg-muted transition-colors"
+                className="flex flex-col items-center gap-2 p-2 rounded-xl hover:bg-muted transition-colors"
               >
-                <div className="w-12 h-12 rounded-full bg-black flex items-center justify-center shadow-md">
-                  <Twitter size={22} className="text-white" />
+                <div className="w-11 h-11 rounded-full bg-black flex items-center justify-center shadow-md">
+                  <Twitter size={20} className="text-white" />
                 </div>
-                <span className="text-xs text-muted-foreground font-medium">X / Twitter</span>
+                <span className="text-xs text-muted-foreground font-medium">X</span>
               </button>
               <button
                 onClick={compartilharTelegram}
-                className="flex flex-col items-center gap-2 p-3 rounded-xl hover:bg-muted transition-colors"
+                className="flex flex-col items-center gap-2 p-2 rounded-xl hover:bg-muted transition-colors"
               >
-                <div className="w-12 h-12 rounded-full bg-[#229ED9] flex items-center justify-center shadow-md">
-                  <Send size={22} className="text-white" />
+                <div className="w-11 h-11 rounded-full bg-[#229ED9] flex items-center justify-center shadow-md">
+                  <Send size={20} className="text-white" />
                 </div>
                 <span className="text-xs text-muted-foreground font-medium">Telegram</span>
               </button>
