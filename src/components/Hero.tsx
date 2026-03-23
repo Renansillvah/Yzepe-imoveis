@@ -39,17 +39,23 @@ export default function Hero() {
     <section
       className="relative min-h-[92vh] flex items-center"
       style={{
-        backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.42) 55%, rgba(0,0,0,0.28) 100%), url('https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/ff02bd4f-ed7c-4cd6-98aa-9bc86c099e15.jpg')`,
+        backgroundImage: `url('https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/ff02bd4f-ed7c-4cd6-98aa-9bc86c099e15.jpg')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
       }}
     >
-      {/* Overlay sutil no topo e base para profundidade */}
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.0) 40%, rgba(0,0,0,0.35) 100%)' }} />
+      {/* Overlay leve — valoriza a imagem sem esconder */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: 'linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.15) 100%)',
+        }}
+      />
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 py-16 md:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
           {/* Lado esquerdo - Texto */}
           <div>
             {/* Badges de autoridade */}
@@ -63,7 +69,7 @@ export default function Hero() {
                 return (
                   <div
                     key={item.text}
-                    className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-3 py-1.5 text-xs text-white font-medium"
+                    className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm border border-white/25 rounded-full px-3 py-1.5 text-xs text-white font-medium"
                   >
                     <Icon size={12} className="text-accent" />
                     {item.text}
@@ -73,13 +79,12 @@ export default function Hero() {
             </div>
 
             {/* Título principal */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight mb-5">
-              Especialista em<br />
-              <span className="text-accent">terrenos, chácaras</span><br />
-              e imóveis
+            <h1 className="text-4xl md:text-5xl lg:text-[3.4rem] font-serif font-bold text-white leading-tight mb-5 drop-shadow-lg">
+              Terrenos, chácaras e imóveis<br />
+              <span className="text-accent">em Toledo MG</span> e região
             </h1>
-            <p className="text-white/70 text-base md:text-lg leading-relaxed mb-8 max-w-md">
-              Encontre o imóvel certo com quem conhece cada bairro, rua e oportunidade da região de Toledo MG.
+            <p className="text-white/85 text-base md:text-lg leading-relaxed mb-8 max-w-md drop-shadow">
+              Negócios seguros, atendimento direto e as melhores oportunidades da região.
             </p>
 
             <div className="flex flex-wrap gap-3">
@@ -107,10 +112,18 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Lado direito - Caixa de busca */}
-          <div className="bg-card rounded-2xl shadow-2xl overflow-hidden border border-border/50">
+          {/* Lado direito - Caixa de busca estilo glass */}
+          <div
+            className="rounded-2xl shadow-2xl overflow-hidden"
+            style={{
+              background: 'rgba(255,255,255,0.88)',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+              border: '1px solid rgba(255,255,255,0.6)',
+            }}
+          >
             {/* Toggle Comprar / Alugar */}
-            <div className="flex">
+            <div className="flex" style={{ borderBottom: '1px solid rgba(0,0,0,0.08)' }}>
               {(['Comprar', 'Alugar'] as const).map((f) => (
                 <button
                   key={f}
@@ -118,8 +131,9 @@ export default function Hero() {
                   className={`flex-1 py-3.5 text-sm font-bold transition-colors flex items-center justify-center gap-2 ${
                     finalidade === f
                       ? 'bg-primary text-primary-foreground'
-                      : 'bg-muted text-muted-foreground hover:bg-secondary'
+                      : 'text-muted-foreground hover:bg-black/5'
                   }`}
+                  style={{ background: finalidade === f ? undefined : 'transparent' }}
                 >
                   {f === 'Comprar' ? <Home size={15} /> : <Building2 size={15} />}
                   {f}
@@ -159,7 +173,7 @@ export default function Hero() {
                   <select
                     value={cidade}
                     onChange={(e) => setCidade(e.target.value)}
-                    className="w-full border border-input rounded-lg px-3 py-2 text-sm bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                    className="w-full border border-input rounded-lg px-3 py-2 text-sm bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                   >
                     {cidades.map((c) => (
                       <option key={c} value={c}>{c}</option>
@@ -175,7 +189,7 @@ export default function Hero() {
                     value={bairro}
                     onChange={(e) => setBairro(e.target.value)}
                     placeholder="Digite o bairro..."
-                    className="w-full border border-input rounded-lg px-3 py-2 text-sm bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                    className="w-full border border-input rounded-lg px-3 py-2 text-sm bg-white text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                   />
                 </div>
               </div>
@@ -191,14 +205,14 @@ export default function Hero() {
                     value={precoMin}
                     onChange={(e) => setPrecoMin(e.target.value)}
                     placeholder="Mínimo"
-                    className="w-full border border-input rounded-lg px-3 py-2 text-sm bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                    className="w-full border border-input rounded-lg px-3 py-2 text-sm bg-white text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                   />
                   <input
                     type="text"
                     value={precoMax}
                     onChange={(e) => setPrecoMax(e.target.value)}
                     placeholder="Máximo"
-                    className="w-full border border-input rounded-lg px-3 py-2 text-sm bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                    className="w-full border border-input rounded-lg px-3 py-2 text-sm bg-white text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                   />
                 </div>
               </div>
@@ -235,6 +249,7 @@ export default function Hero() {
               </Button>
             </div>
           </div>
+
         </div>
       </div>
     </section>
