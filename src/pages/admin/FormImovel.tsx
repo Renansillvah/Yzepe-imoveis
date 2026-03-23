@@ -219,13 +219,16 @@ export default function FormImovel() {
       return
     }
     setSalvando(true)
+    // Remove pontos de milhar e troca vírgula decimal por ponto
+    const precoLimpo = form.preco.replace(/\./g, '').replace(',', '.')
+    const areaLimpa = form.area.replace(/\./g, '').replace(',', '.')
     const dados = {
       titulo: form.titulo,
-      preco: parseFloat(form.preco.replace(',', '.')),
+      preco: parseFloat(precoLimpo) || 0,
       tipo: form.tipo,
       cidade: form.cidade,
       bairro: form.bairro,
-      area: parseFloat(form.area) || 0,
+      area: parseFloat(areaLimpa) || 0,
       descricao: form.descricao,
       imagens: form.imagens,
       status: form.status,
