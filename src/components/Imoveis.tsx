@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { MapPin, Maximize, Heart, Phone, CheckCircle, Tag, ArrowRight } from 'lucide-react'
+import { MapPin, Maximize, Heart, Phone, CheckCircle, Tag, ArrowRight, MessageCircle, Eye } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -241,8 +241,8 @@ export default function Imoveis() {
                   </div>
                 )}
 
-                <div className="flex items-center justify-between pt-1">
-                  <div>
+                <div className="pt-1">
+                  <div className="mb-3">
                     <div className="text-xs text-muted-foreground">
                       {imovel.status === 'Aluguel' ? 'Aluguel' : 'Valor'}
                     </div>
@@ -250,15 +250,35 @@ export default function Imoveis() {
                       {formatPreco(imovel.preco, imovel.status)}
                     </div>
                   </div>
-                  <Button
-                    size="sm"
-                    onClick={scrollContato}
-                    className="bg-primary text-primary-foreground hover:opacity-80 text-xs gap-1.5 font-semibold"
-                  >
-                    <Phone size={12} />
-                    Consultar
-                    <ArrowRight size={12} />
-                  </Button>
+                  <div className="flex items-center gap-2">
+                    {/* Botão Telefone - discreto com ícone */}
+                    <a
+                      href="tel:+5535998309575"
+                      className="flex items-center justify-center w-9 h-9 rounded-lg border border-border text-muted-foreground hover:border-accent hover:text-accent transition-all flex-shrink-0"
+                      title="Ligar"
+                    >
+                      <Phone size={15} />
+                    </a>
+                    {/* Botão WhatsApp - verde e chamativo */}
+                    <a
+                      href={`https://wa.me/5535998309575?text=Olá,%20tenho%20interesse%20neste%20imóvel:%20${encodeURIComponent(imovel.titulo)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#25D366] text-white text-xs font-semibold hover:bg-[#1ebe5a] transition-all flex-shrink-0 shadow-sm"
+                    >
+                      <MessageCircle size={14} />
+                      WhatsApp
+                    </a>
+                    {/* Botão Ver detalhes - destaque principal */}
+                    <Button
+                      size="sm"
+                      onClick={scrollContato}
+                      className="flex-1 bg-primary text-primary-foreground hover:opacity-80 text-xs gap-1.5 font-semibold"
+                    >
+                      <Eye size={12} />
+                      Ver detalhes
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>
