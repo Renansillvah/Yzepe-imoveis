@@ -1,17 +1,27 @@
-// Nota: O BrowserRouter está definido no main.tsx, então você pode usar Routes e Route diretamente aqui
-import { ThemeToggle } from "@/components/theme-toggle";
+import { Toaster } from '@/components/ui/sonner'
+import Header from '@/components/Header'
+import Hero from '@/components/Hero'
+import Imoveis from '@/components/Imoveis'
+import Sobre from '@/components/Sobre'
+import Servicos from '@/components/Servicos'
+import Depoimentos from '@/components/Depoimentos'
+import Contato from '@/components/Contato'
+import Footer from '@/components/Footer'
 
-export function App() {
+function App() {
   return (
-    <div className="relative min-h-screen">
-      <div className="absolute top-4 right-4 z-50">
-        <ThemeToggle />
-      </div>
-      <div className="flex items-center justify-center min-h-screen">
-        <h1 className="text-4xl font-bold">lasy</h1>
-      </div>
+    <div className="min-h-screen bg-background">
+      <Header />
+      <Hero />
+      <Imoveis />
+      <Sobre />
+      <Servicos />
+      <Depoimentos />
+      <Contato />
+      <Footer />
+      <Toaster richColors position="top-right" />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
