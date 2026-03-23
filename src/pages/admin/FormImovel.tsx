@@ -560,7 +560,7 @@ export default function FormImovel() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex gap-2 flex-wrap">
-                {['Aceita financiamento', 'Aceita parcelamento', 'Com escritura', 'FGTS aceito', 'Nascente d\'água', 'Energia elétrica'].map((d) => (
+                {['Aceita financiamento', 'Aceita parcelamento', 'Com escritura', 'FGTS aceito', 'Nascente d\'água', 'Energia elétrica', 'Porteira fechada', 'Piscina', 'Tanque de peixe', 'Rio/Riacho'].map((d) => (
                   <button
                     key={d}
                     type="button"
