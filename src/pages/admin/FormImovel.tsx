@@ -12,7 +12,7 @@ import { useImoveis, type Imovel } from '@/contexts/ImoveisContext'
 import { toast } from 'sonner'
 import { supabaseAdmin } from '@/lib/supabase'
 
-const TIPOS = ['Casa', 'Terreno', 'Lote', 'Loteamento', 'Chácara', 'Sítio'] as const
+const TIPOS = ['Casa', 'Terreno', 'Terreno 20.000 m²', 'Lote', 'Loteamento', 'Chácara', 'Sítio'] as const
 
 const CIDADES = [
   'Toledo MG',

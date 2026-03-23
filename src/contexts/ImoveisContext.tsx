@@ -5,7 +5,7 @@ export interface Imovel {
   id: string
   titulo: string
   preco: number
-  tipo: 'Casa' | 'Terreno' | 'Lote' | 'Loteamento' | 'Chácara' | 'Sítio'
+  tipo: 'Casa' | 'Terreno' | 'Terreno 20.000 m²' | 'Lote' | 'Loteamento' | 'Chácara' | 'Sítio'
   cidade: string
   bairro: string
   area: number

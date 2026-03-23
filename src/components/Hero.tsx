@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Search, Home, Building2, CheckCircle, MessageCircle, MapPin, ArrowRight, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
-const tiposImovel = ['Todos', 'Casa', 'Terreno', 'Lote', 'Loteamento', 'Chácara', 'Sítio']
+const tiposImovel = ['Todos', 'Casa', 'Terreno', 'Terreno 20.000 m²', 'Lote', 'Loteamento', 'Chácara', 'Sítio']
 
 const cidades = [
   'Todas as cidades',
