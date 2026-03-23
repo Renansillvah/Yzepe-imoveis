@@ -6,13 +6,22 @@ const tiposImovel = ['Todos', 'Casa', 'Terreno', 'Lote', 'Loteamento', 'Chácara
 
 const cidades = [
   'Todas as cidades',
-  'Toledo',
-  'Três Corações',
-  'Nepomuceno',
-  'Lavras',
-  'Itajubá',
-  'Varginha',
-  'Pouso Alegre',
+  'Toledo MG',
+  'Munhoz MG',
+  'Itapeva MG',
+  'Extrema MG',
+  'Cambuí MG',
+  'Camanducaia MG',
+  'Pouso Alegre MG',
+  'Bueno Brandão MG',
+  'Bragança Paulista SP',
+  'Socorro SP',
+  'Pedra Bela SP',
+  'Pinhalzinho SP',
+  'Consolação MG',
+  'Córrego do Bom Jesus MG',
+  'Senador Amaral MG',
+  'Bom Repouso MG',
 ]
 
 export default function Hero() {

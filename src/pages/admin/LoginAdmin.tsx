@@ -6,9 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { toast } from 'sonner'
-
-const ADMIN_USER = 'admin'
-const ADMIN_PASS = 'yzepe2024'
+import { supabase } from '@/lib/supabase'
 
 export default function LoginAdmin() {
   const navigate = useNavigate()
@@ -17,18 +15,31 @@ export default function LoginAdmin() {
   const [mostrarSenha, setMostrarSenha] = useState(false)
   const [carregando, setCarregando] = useState(false)
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setCarregando(true)
-    setTimeout(() => {
-      if (usuario === ADMIN_USER && senha === ADMIN_PASS) {
-        sessionStorage.setItem('admin_auth', 'true')
-        navigate('/admin/painel')
-      } else {
+
+    try {
+      const { data, error } = await supabase
+        .from('admins')
+        .select('id, usuario, nome')
+        .eq('usuario', usuario.trim())
+        .eq('senha', senha)
+        .single()
+
+      if (error || !data) {
         toast.error('Usuário ou senha incorretos')
         setCarregando(false)
+        return
       }
-    }, 600)
+
+      sessionStorage.setItem('admin_auth', 'true')
+      sessionStorage.setItem('admin_nome', data.nome)
+      navigate('/admin/painel')
+    } catch {
+      toast.error('Erro ao verificar credenciais. Tente novamente.')
+      setCarregando(false)
+    }
   }
 
   return (

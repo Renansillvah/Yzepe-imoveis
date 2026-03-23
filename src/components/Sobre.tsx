@@ -69,7 +69,7 @@ export default function Sobre() {
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2">
-              {['CRECI-SP Ativo', 'Escritura Garantida', 'Financiamento CAIXA', 'Parcelamento Próprio'].map((tag) => (
+              {['CRECI-MG Ativo', 'Escritura Garantida', 'Financiamento CAIXA', 'Parcelamento Próprio'].map((tag) => (
                 <span
                   key={tag}
                   className="inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1.5 text-xs font-semibold text-foreground"
