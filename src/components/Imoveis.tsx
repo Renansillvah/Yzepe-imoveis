@@ -1,94 +1,15 @@
 import { useState } from 'react'
-import { MapPin, Maximize, Heart, Phone, CheckCircle, Tag, ArrowRight, MessageCircle, Eye } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { MapPin, Maximize, Heart, Phone, CheckCircle, Tag, ArrowRight, MessageCircle, Eye, Star, AlertTriangle } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-
-const imoveis = [
-  {
-    id: 1,
-    tipo: 'Casa',
-    status: 'Venda',
-    titulo: 'Casa Simples no Centro de Toledo',
-    bairro: 'Centro',
-    cidade: 'Toledo - MG',
-    preco: 180000,
-    area: 120,
-    diferenciais: ['Aceita financiamento', 'Com escritura'],
-    imagem: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80',
-    destaque: true,
-  },
-  {
-    id: 2,
-    tipo: 'Terreno',
-    status: 'Venda',
-    titulo: 'Terreno Plano no Bairro Novo',
-    bairro: 'Bairro Novo',
-    cidade: 'Toledo - MG',
-    preco: 45000,
-    area: 300,
-    diferenciais: ['Aceita parcelamento', 'Com escritura'],
-    imagem: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&q=80',
-    destaque: false,
-  },
-  {
-    id: 3,
-    tipo: 'Chácara',
-    status: 'Venda',
-    titulo: 'Chácara com Nascente e Casa Sede',
-    bairro: 'Zona Rural',
-    cidade: 'Toledo - MG',
-    preco: 320000,
-    area: 20000,
-    diferenciais: ['Com escritura', 'Aceita financiamento'],
-    imagem: 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=600&q=80',
-    destaque: true,
-  },
-  {
-    id: 4,
-    tipo: 'Lote',
-    status: 'Venda',
-    titulo: 'Lote em Loteamento Residencial',
-    bairro: 'Jardim das Flores',
-    cidade: 'Nepomuceno - MG',
-    preco: 28000,
-    area: 200,
-    diferenciais: ['Aceita parcelamento'],
-    imagem: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
-    destaque: false,
-  },
-  {
-    id: 5,
-    tipo: 'Sítio',
-    status: 'Venda',
-    titulo: 'Sítio com Casa e Pomar',
-    bairro: 'Estrada Velha',
-    cidade: 'Toledo - MG',
-    preco: 560000,
-    area: 50000,
-    diferenciais: ['Com escritura', 'Aceita financiamento'],
-    imagem: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80',
-    destaque: false,
-  },
-  {
-    id: 6,
-    tipo: 'Casa',
-    status: 'Aluguel',
-    titulo: 'Casa para Alugar no Bairro São João',
-    bairro: 'São João',
-    cidade: 'Toledo - MG',
-    preco: 900,
-    area: 90,
-    diferenciais: [],
-    imagem: 'https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?w=600&q=80',
-    destaque: false,
-  },
-]
+import { useImoveis } from '@/contexts/ImoveisContext'
 
 const tipos = ['Todos', 'Casa', 'Terreno', 'Lote', 'Chácara', 'Sítio']
 
-function formatPreco(preco: number, status: string) {
-  if (status === 'Aluguel') {
+function formatPreco(preco: number, finalidade: string) {
+  if (finalidade === 'Aluguel') {
     return `R$ ${preco.toLocaleString('pt-BR')}/mês`
   }
   if (preco >= 1000000) {
@@ -103,24 +24,27 @@ function formatArea(area: number) {
 }
 
 export default function Imoveis() {
+  const { imoveis } = useImoveis()
   const [filtro, setFiltro] = useState('Todos')
   const [finalidade, setFinalidade] = useState<'Todos' | 'Venda' | 'Aluguel'>('Todos')
-  const [favoritos, setFavoritos] = useState<number[]>([])
+  const [favoritos, setFavoritos] = useState<string[]>([])
 
-  const toggleFavorito = (id: number) => {
+  const toggleFavorito = (id: string) => {
     setFavoritos((prev) => prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id])
   }
 
-  const filtered = imoveis.filter((i) => {
+  // Apenas imóveis disponíveis, destaques primeiro
+  const disponiveis = imoveis.filter((i) => i.status === 'Disponível')
+  const ordenados = [
+    ...disponiveis.filter((i) => i.destaque),
+    ...disponiveis.filter((i) => !i.destaque),
+  ]
+
+  const filtered = ordenados.filter((i) => {
     if (filtro !== 'Todos' && i.tipo !== filtro) return false
-    if (finalidade !== 'Todos' && i.status !== finalidade) return false
+    if (finalidade !== 'Todos' && i.finalidade !== finalidade) return false
     return true
   })
-
-  const scrollContato = () => {
-    const el = document.getElementById('contato')
-    if (el) el.scrollIntoView({ behavior: 'smooth' })
-  }
 
   return (
     <section id="imoveis" className="py-20 bg-background">
@@ -178,23 +102,30 @@ export default function Imoveis() {
               {/* Imagem */}
               <div className="relative h-52 overflow-hidden">
                 <img
-                  src={imovel.imagem}
+                  src={imovel.imagens[0] || 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80'}
                   alt={imovel.titulo}
-                  className="w-full h-full object-cover group-hover:scale-107 transition-transform duration-500"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                {/* Overlay sutil na base da imagem */}
                 <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 50%)' }} />
 
-                <div className="absolute top-3 left-3 flex gap-2">
-                  <Badge className={`text-xs font-bold shadow-sm ${imovel.status === 'Venda' ? 'bg-primary text-primary-foreground' : 'bg-foreground text-background'}`}>
-                    {imovel.status}
+                <div className="absolute top-3 left-3 flex gap-2 flex-wrap">
+                  <Badge className={`text-xs font-bold shadow-sm ${imovel.finalidade === 'Venda' ? 'bg-primary text-primary-foreground' : 'bg-foreground text-background'}`}>
+                    {imovel.finalidade}
                   </Badge>
                   {imovel.destaque && (
-                    <Badge className="bg-accent text-accent-foreground text-xs font-bold shadow-sm">
+                    <Badge className="bg-accent text-accent-foreground text-xs font-bold shadow-sm gap-0.5">
+                      <Star size={9} />
                       Destaque
                     </Badge>
                   )}
+                  {imovel.urgencia && (
+                    <Badge className="bg-orange-500 text-white text-xs font-bold shadow-sm gap-0.5">
+                      <AlertTriangle size={9} />
+                      {imovel.urgencia}
+                    </Badge>
+                  )}
                 </div>
+
                 <button
                   onClick={() => toggleFavorito(imovel.id)}
                   className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full p-1.5 shadow-md transition-all hover:scale-110"
@@ -204,6 +135,7 @@ export default function Imoveis() {
                     className={favoritos.includes(imovel.id) ? 'fill-red-500 text-red-500' : 'text-muted-foreground'}
                   />
                 </button>
+
                 {/* Tipo badge */}
                 <div className="absolute bottom-3 left-3">
                   <span className="bg-white/95 text-foreground text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1 shadow-sm">
@@ -217,19 +149,21 @@ export default function Imoveis() {
                 <h3 className="font-semibold text-foreground mb-1.5 leading-snug text-sm">{imovel.titulo}</h3>
                 <div className="flex items-center gap-1 text-muted-foreground text-xs mb-3">
                   <MapPin size={11} />
-                  {imovel.bairro}, {imovel.cidade}
+                  {imovel.bairro && `${imovel.bairro}, `}{imovel.cidade}
                 </div>
 
                 {/* Área */}
-                <div className="flex items-center gap-1.5 text-xs text-muted-foreground border-y border-border py-2.5 mb-3">
-                  <Maximize size={12} />
-                  <span className="font-medium">{formatArea(imovel.area)}</span>
-                </div>
+                {imovel.area > 0 && (
+                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground border-y border-border py-2.5 mb-3">
+                    <Maximize size={12} />
+                    <span className="font-medium">{formatArea(imovel.area)}</span>
+                  </div>
+                )}
 
                 {/* Diferenciais */}
                 {imovel.diferenciais.length > 0 && (
                   <div className="flex flex-wrap gap-1 mb-3">
-                    {imovel.diferenciais.map((d) => (
+                    {imovel.diferenciais.slice(0, 2).map((d) => (
                       <span
                         key={d}
                         className="flex items-center gap-0.5 text-xs text-accent font-medium bg-accent/10 px-2 py-0.5 rounded-full"
@@ -244,14 +178,14 @@ export default function Imoveis() {
                 <div className="pt-1">
                   <div className="mb-3">
                     <div className="text-xs text-muted-foreground">
-                      {imovel.status === 'Aluguel' ? 'Aluguel' : 'Valor'}
+                      {imovel.finalidade === 'Aluguel' ? 'Aluguel' : 'Valor'}
                     </div>
                     <div className="text-lg font-bold text-foreground">
-                      {formatPreco(imovel.preco, imovel.status)}
+                      {formatPreco(imovel.preco, imovel.finalidade)}
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    {/* Botão Telefone - discreto com ícone */}
+                    {/* Botão Telefone - discreto */}
                     <a
                       href="tel:+5535998309575"
                       className="flex items-center justify-center w-9 h-9 rounded-lg border border-border text-muted-foreground hover:border-accent hover:text-accent transition-all flex-shrink-0"
@@ -259,7 +193,7 @@ export default function Imoveis() {
                     >
                       <Phone size={15} />
                     </a>
-                    {/* Botão WhatsApp - verde e chamativo */}
+                    {/* Botão WhatsApp - verde */}
                     <a
                       href={`https://wa.me/5535998309575?text=Olá,%20tenho%20interesse%20neste%20imóvel:%20${encodeURIComponent(imovel.titulo)}`}
                       target="_blank"
@@ -269,15 +203,16 @@ export default function Imoveis() {
                       <MessageCircle size={14} />
                       WhatsApp
                     </a>
-                    {/* Botão Ver detalhes - destaque principal */}
-                    <Button
-                      size="sm"
-                      onClick={scrollContato}
-                      className="flex-1 bg-primary text-primary-foreground hover:opacity-80 text-xs gap-1.5 font-semibold"
-                    >
-                      <Eye size={12} />
-                      Ver detalhes
-                    </Button>
+                    {/* Botão Ver detalhes - principal */}
+                    <Link to={`/imovel/${imovel.id}`} className="flex-1">
+                      <Button
+                        size="sm"
+                        className="w-full bg-primary text-primary-foreground hover:opacity-80 text-xs gap-1.5 font-semibold"
+                      >
+                        <Eye size={12} />
+                        Ver detalhes
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </CardContent>
