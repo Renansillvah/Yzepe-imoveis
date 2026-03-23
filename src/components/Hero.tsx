@@ -36,20 +36,17 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative min-h-[92vh] flex items-center" style={{ backgroundColor: '#0f0f0f' }}>
-      {/* Imagem de fundo */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: 'url(https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1800&q=85)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center 40%',
-          opacity: 0.25,
-        }}
-      />
-
-      {/* Overlay escuro sutil no topo e base */}
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.6) 100%)' }} />
+    <section
+      className="relative min-h-[92vh] flex items-center"
+      style={{
+        backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.42) 55%, rgba(0,0,0,0.28) 100%), url('https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/ff02bd4f-ed7c-4cd6-98aa-9bc86c099e15.jpg')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      {/* Overlay sutil no topo e base para profundidade */}
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.0) 40%, rgba(0,0,0,0.35) 100%)' }} />
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 py-16 md:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
