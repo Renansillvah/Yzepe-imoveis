@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { useImoveis } from '@/contexts/ImoveisContext'
 
-const tipos = ['Todos', 'Casa', 'Terreno', 'Lote', 'Chácara', 'Sítio']
+const tipos = ['Todos', 'Casa', 'Terreno', 'Lote', 'Loteamento', 'Chácara', 'Sítio']
 
 function formatPreco(preco: number, finalidade: string) {
   if (finalidade === 'Aluguel') {

@@ -11,13 +11,34 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useImoveis, type Imovel } from '@/contexts/ImoveisContext'
 import { toast } from 'sonner'
 
-const TIPOS: Imovel['tipo'][] = ['Casa', 'Terreno', 'Lote', 'Chácara', 'Sítio']
+const TIPOS = ['Casa', 'Terreno', 'Lote', 'Loteamento', 'Chácara', 'Sítio'] as const
+
+const CIDADES = [
+  'Toledo MG',
+  'Munhoz MG',
+  'Itapeva MG',
+  'Extrema MG',
+  'Cambuí MG',
+  'Camanducaia MG',
+  'Pouso Alegre MG',
+  'Bueno Brandão MG',
+  'Bragança Paulista SP',
+  'Socorro SP',
+  'Pedra Bela SP',
+  'Pinhalzinho SP',
+  'Consolação MG',
+  'Córrego do Bom Jesus MG',
+  'Senador Amaral MG',
+  'Bom Repouso MG',
+]
 const URGENCIAS = ['', 'Oportunidade', 'Abaixo do preço', 'Última unidade', 'Urgente']
+
+type TipoImovel = typeof TIPOS[number]
 
 type FormData = {
   titulo: string
   preco: string
-  tipo: Imovel['tipo']
+  tipo: TipoImovel
   cidade: string
   bairro: string
   area: string
@@ -33,7 +54,7 @@ type FormData = {
 const formVazio: FormData = {
   titulo: '',
   preco: '',
-  tipo: 'Casa',
+  tipo: 'Casa' as TipoImovel,
   cidade: '',
   bairro: '',
   area: '',
@@ -271,13 +292,16 @@ export default function FormImovel() {
                   <Label htmlFor="cidade" className="text-sm font-medium">
                     Cidade <span className="text-red-500">*</span>
                   </Label>
-                  <Input
+                  <select
                     id="cidade"
                     value={form.cidade}
                     onChange={(e) => set('cidade', e.target.value)}
-                    placeholder="Ex: Toledo - MG"
                     required
-                  />
+                    className="w-full h-9 rounded-md border border-input bg-background px-3 text-sm focus:outline-none focus:ring-1 focus:ring-ring"
+                  >
+                    <option value="">Selecione a cidade</option>
+                    {CIDADES.map((c) => <option key={c} value={c}>{c}</option>)}
+                  </select>
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="bairro" className="text-sm font-medium">Bairro / Localidade</Label>

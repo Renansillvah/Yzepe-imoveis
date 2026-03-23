@@ -101,19 +101,22 @@ export default function Hero() {
 
         {/* Botões CTA */}
         <div className="flex flex-wrap justify-center gap-3">
-          <Button
+          <button
             onClick={handleBuscar}
-            className="bg-accent text-accent-foreground hover:opacity-90 font-bold text-sm px-7 py-5 shadow-lg gap-2"
+            className="inline-flex items-center gap-2 bg-accent text-accent-foreground font-bold text-sm px-7 py-3 rounded-md shadow-lg transition-all"
+            style={{ opacity: 1 }}
+            onMouseEnter={e => (e.currentTarget.style.opacity = '0.88')}
+            onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
           >
             <Search size={16} />
             Ver Imóveis
             <ArrowRight size={15} />
-          </Button>
+          </button>
           <a
             href="https://wa.me/5535998309575?text=Olá,%20vim%20pelo%20site%20e%20quero%20mais%20informações"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-[#25D366] text-white font-semibold text-sm px-7 py-3 rounded-md shadow-lg hover:bg-[#1ebe5a] transition-all"
+            className="inline-flex items-center gap-2 bg-[#25D366] text-white font-bold text-sm px-7 py-3 rounded-md shadow-lg hover:bg-[#1ebe5a] transition-all"
           >
             <MessageCircle size={16} />
             WhatsApp
