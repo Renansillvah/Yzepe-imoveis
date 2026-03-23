@@ -44,18 +44,18 @@ export default function Contato() {
             Entre em Contato
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
-            Estamos prontos para ajudar você a encontrar o imóvel ideal. Entre em contato agora!
+            Atendemos pelo WhatsApp com agilidade. Ou preencha o formulário e entraremos em contato.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
           {/* Info */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-5">
             <div>
               <img
                 src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/750e9e48-8561-4ea5-92e0-a52b75fca13c.png"
                 alt="Yzepe Imóveis"
-                className="h-14 w-auto object-contain mb-6"
+                className="h-14 w-auto object-contain mb-4"
               />
             </div>
 
@@ -63,8 +63,8 @@ export default function Contato() {
               {
                 icon: Phone,
                 titulo: 'Telefone / WhatsApp',
-                valor: '(11) 99999-9999',
-                link: 'https://wa.me/5511999999999',
+                valor: '(35) 99830-9575',
+                link: 'tel:+5535998309575',
               },
               {
                 icon: Mail,
@@ -74,8 +74,8 @@ export default function Contato() {
               },
               {
                 icon: MapPin,
-                titulo: 'Endereço',
-                valor: 'São Paulo, SP — Atendemos toda a Grande SP',
+                titulo: 'Localização',
+                valor: 'Toledo - MG · Atendemos toda região',
                 link: null,
               },
             ].map((item) => {
@@ -99,20 +99,26 @@ export default function Contato() {
               )
             })}
 
+            {/* CTA WhatsApp destaque */}
             <a
-              href="https://wa.me/5511999999999?text=Olá,%20vim%20pelo%20site%20e%20gostaria%20de%20mais%20informações!"
+              href="https://wa.me/5535998309575?text=Olá,%20vim%20pelo%20site%20e%20quero%20mais%20informações"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Button className="w-full bg-[#25D366] hover:opacity-90 text-white font-semibold gap-2 mt-2">
-                <MessageCircle size={18} />
-                Chamar no WhatsApp
+              <Button className="w-full bg-[#25D366] hover:opacity-90 text-white font-bold gap-2 py-5 shadow-lg text-base mt-2">
+                <MessageCircle size={20} />
+                Chamar no WhatsApp agora
               </Button>
             </a>
+
+            <p className="text-xs text-muted-foreground text-center">
+              Respondemos em minutos • Disponível fins de semana
+            </p>
           </div>
 
           {/* Formulário */}
           <div className="lg:col-span-3 bg-card rounded-xl border border-border p-6 shadow-sm">
+            <h3 className="font-semibold text-foreground mb-4 text-base">Ou deixe seu contato:</h3>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
@@ -132,13 +138,13 @@ export default function Contato() {
                     name="telefone"
                     value={form.telefone}
                     onChange={handleChange}
-                    placeholder="(11) 99999-9999"
+                    placeholder="(35) 99999-9999"
                   />
                 </div>
               </div>
 
               <div className="space-y-1">
-                <Label htmlFor="email">E-mail</Label>
+                <Label htmlFor="email">E-mail (opcional)</Label>
                 <Input
                   id="email"
                   name="email"
@@ -159,7 +165,9 @@ export default function Contato() {
                   className="w-full border border-input rounded-md px-3 py-2 text-sm bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                 >
                   <option value="">Selecione uma opção</option>
-                  <option value="comprar">Comprar um imóvel</option>
+                  <option value="comprar-casa">Comprar uma casa</option>
+                  <option value="comprar-terreno">Comprar um terreno / lote</option>
+                  <option value="comprar-chacara">Comprar chácara ou sítio</option>
                   <option value="alugar">Alugar um imóvel</option>
                   <option value="vender">Vender meu imóvel</option>
                   <option value="avaliar">Avaliar meu imóvel</option>
@@ -167,21 +175,21 @@ export default function Contato() {
               </div>
 
               <div className="space-y-1">
-                <Label htmlFor="mensagem">Mensagem</Label>
+                <Label htmlFor="mensagem">Mensagem (opcional)</Label>
                 <Textarea
                   id="mensagem"
                   name="mensagem"
                   value={form.mensagem}
                   onChange={handleChange}
-                  placeholder="Conte mais sobre o que você procura..."
-                  rows={4}
+                  placeholder="Descreva o que você procura: cidade, bairro, tamanho, orçamento..."
+                  rows={3}
                 />
               </div>
 
               <Button
                 type="submit"
                 disabled={enviando}
-                className="w-full bg-primary text-primary-foreground hover:opacity-90 font-semibold gap-2"
+                className="w-full bg-accent text-accent-foreground hover:opacity-90 font-bold gap-2 py-5 text-base shadow-md"
               >
                 <Send size={16} />
                 {enviando ? 'Enviando...' : 'Enviar Mensagem'}

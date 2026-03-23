@@ -1,25 +1,32 @@
-import { Award, Users, ThumbsUp, Star } from 'lucide-react'
+import { Award, Users, ThumbsUp, Star, MessageCircle, MapPin, TrendingUp } from 'lucide-react'
+
+const autoridade = [
+  { valor: '+80', label: 'Imóveis Disponíveis', icon: TrendingUp },
+  { valor: '+300', label: 'Clientes Atendidos', icon: Users },
+  { valor: '+10', label: 'Anos de Experiência', icon: Award },
+  { valor: '100%', label: 'Atendimento via WhatsApp', icon: MessageCircle },
+]
 
 const diferenciais = [
   {
-    icon: Award,
-    titulo: 'Experiência Comprovada',
-    descricao: 'Mais de 10 anos atuando no mercado imobiliário de São Paulo com excelência.',
+    icon: MapPin,
+    titulo: 'Especialista na Região',
+    descricao: 'Conhecemos cada bairro, rua e oportunidade de Toledo MG e cidades vizinhas.',
   },
   {
-    icon: Users,
-    titulo: 'Atendimento Personalizado',
-    descricao: 'Cada cliente é único. Entendemos suas necessidades e encontramos o imóvel ideal.',
+    icon: Award,
+    titulo: 'CRECI Ativo',
+    descricao: 'Corretor credenciado, garantindo segurança e legalidade em cada negócio.',
   },
   {
     icon: ThumbsUp,
     titulo: 'Transparência Total',
-    descricao: 'Processo claro e honesto do início ao fim. Você sempre sabe o que está acontecendo.',
+    descricao: 'Processo claro e honesto do início ao fim — documentação e escritura sempre em dia.',
   },
   {
     icon: Star,
-    titulo: 'Parceiro Imovel Web',
-    descricao: 'Anunciamos no maior portal imobiliário do Brasil para maximizar a visibilidade dos seus imóveis.',
+    titulo: 'Atendimento Rápido',
+    descricao: 'Resposta no WhatsApp em minutos. Disponibilidade para visitas nos fins de semana.',
   },
 ]
 
@@ -27,26 +34,61 @@ export default function Sobre() {
   return (
     <section id="sobre" className="py-16 bg-secondary">
       <div className="max-w-7xl mx-auto px-4">
+
+        {/* Números de autoridade */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14">
+          {autoridade.map((item) => {
+            const Icon = item.icon
+            return (
+              <div
+                key={item.label}
+                className="bg-card rounded-xl p-5 text-center border border-border shadow-sm"
+              >
+                <div className="flex justify-center mb-2">
+                  <Icon size={22} className="text-accent" />
+                </div>
+                <div className="text-3xl font-bold text-foreground">{item.valor}</div>
+                <div className="text-xs text-muted-foreground mt-1">{item.label}</div>
+              </div>
+            )
+          })}
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* Texto */}
           <div>
             <p className="text-accent font-semibold text-sm uppercase tracking-widest mb-2">Quem Somos</p>
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-5 leading-tight">
-              Yzepe Imóveis: <br />Seu parceiro de confiança
+              Yzepe Imóveis:<br />Seu parceiro em Toledo MG
             </h2>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              A Yzepe Imóveis é uma imobiliária especializada em imóveis residenciais e comerciais em São Paulo e Grande São Paulo. Com mais de uma década de experiência, somos referência em atendimento humanizado e resultados concretos.
+              Somos especializados em terrenos, lotes, chácaras, sítios e casas em Toledo MG e toda a região sul de Minas Gerais. Com mais de 10 anos de experiência, ajudamos famílias a realizarem o sonho da casa própria ou do imóvel rural.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              Nossa equipe de corretores altamente qualificados está pronta para auxiliar você em todas as etapas — desde a busca pelo imóvel ideal até a assinatura do contrato. Trabalhamos com total transparência e dedicação para transformar seu sonho em realidade.
+              Atuamos com imóveis para compra, venda e locação — sempre com documentação regularizada, escritura garantida e opções de financiamento e parcelamento para facilitar a sua compra.
             </p>
 
-            {/* CRECI */}
-            <div className="mt-6 inline-flex items-center gap-2 bg-card border border-border rounded-lg px-4 py-2">
-              <div className="w-2 h-2 rounded-full bg-accent"></div>
-              <span className="text-sm font-medium text-foreground">CRECI-SP Ativo</span>
-              <span className="text-sm text-muted-foreground">• Credenciado Imovel Web</span>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {['CRECI-SP Ativo', 'Escritura Garantida', 'Financiamento CAIXA', 'Parcelamento Próprio'].map((tag) => (
+                <span
+                  key={tag}
+                  className="inline-flex items-center gap-1.5 bg-card border border-border rounded-full px-3 py-1.5 text-xs font-semibold text-foreground"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent block"></span>
+                  {tag}
+                </span>
+              ))}
             </div>
+
+            <a
+              href="https://wa.me/5535998309575?text=Olá,%20vim%20pelo%20site%20e%20quero%20mais%20informações"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center gap-2 bg-[#25D366] text-white rounded-xl px-5 py-3 font-bold text-sm hover:opacity-90 transition-opacity shadow-md"
+            >
+              <MessageCircle size={18} />
+              Falar direto no WhatsApp
+            </a>
           </div>
 
           {/* Diferenciais */}

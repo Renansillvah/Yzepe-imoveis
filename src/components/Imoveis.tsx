@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { MapPin, Bed, Bath, Car, Maximize, Heart, Phone } from 'lucide-react'
+import { MapPin, Maximize, Heart, Phone, CheckCircle, Tag } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -7,95 +7,85 @@ import { Button } from '@/components/ui/button'
 const imoveis = [
   {
     id: 1,
-    tipo: 'Apartamento',
+    tipo: 'Casa',
     status: 'Venda',
-    titulo: 'Apartamento Moderno no Jardins',
-    bairro: 'Jardins',
-    cidade: 'São Paulo',
-    preco: 850000,
-    quartos: 3,
-    banheiros: 2,
-    vagas: 2,
+    titulo: 'Casa Simples no Centro de Toledo',
+    bairro: 'Centro',
+    cidade: 'Toledo - MG',
+    preco: 180000,
     area: 120,
-    imagem: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&q=80',
+    diferenciais: ['Aceita financiamento', 'Com escritura'],
+    imagem: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80',
     destaque: true,
   },
   {
     id: 2,
-    tipo: 'Casa',
+    tipo: 'Terreno',
     status: 'Venda',
-    titulo: 'Casa com Piscina no Alphaville',
-    bairro: 'Alphaville',
-    cidade: 'Barueri',
-    preco: 1450000,
-    quartos: 4,
-    banheiros: 3,
-    vagas: 3,
-    area: 280,
-    imagem: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80',
-    destaque: true,
-  },
-  {
-    id: 3,
-    tipo: 'Apartamento',
-    status: 'Aluguel',
-    titulo: 'Studio Completo na Vila Madalena',
-    bairro: 'Vila Madalena',
-    cidade: 'São Paulo',
-    preco: 3200,
-    quartos: 1,
-    banheiros: 1,
-    vagas: 1,
-    area: 45,
-    imagem: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&q=80',
+    titulo: 'Terreno Plano no Bairro Novo',
+    bairro: 'Bairro Novo',
+    cidade: 'Toledo - MG',
+    preco: 45000,
+    area: 300,
+    diferenciais: ['Aceita parcelamento', 'Com escritura'],
+    imagem: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&q=80',
     destaque: false,
   },
   {
-    id: 4,
-    tipo: 'Cobertura',
+    id: 3,
+    tipo: 'Chácara',
     status: 'Venda',
-    titulo: 'Cobertura Duplex em Moema',
-    bairro: 'Moema',
-    cidade: 'São Paulo',
-    preco: 2100000,
-    quartos: 4,
-    banheiros: 4,
-    vagas: 4,
-    area: 350,
-    imagem: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80',
+    titulo: 'Chácara com Nascente e Casa Sede',
+    bairro: 'Zona Rural',
+    cidade: 'Toledo - MG',
+    preco: 320000,
+    area: 20000,
+    diferenciais: ['Com escritura', 'Aceita financiamento'],
+    imagem: 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=600&q=80',
+    destaque: true,
+  },
+  {
+    id: 4,
+    tipo: 'Lote',
+    status: 'Venda',
+    titulo: 'Lote em Loteamento Residencial',
+    bairro: 'Jardim das Flores',
+    cidade: 'Nepomuceno - MG',
+    preco: 28000,
+    area: 200,
+    diferenciais: ['Aceita parcelamento'],
+    imagem: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
     destaque: false,
   },
   {
     id: 5,
-    tipo: 'Casa',
-    status: 'Aluguel',
-    titulo: 'Casa em Condomínio no Morumbi',
-    bairro: 'Morumbi',
-    cidade: 'São Paulo',
-    preco: 8500,
-    quartos: 3,
-    banheiros: 2,
-    vagas: 2,
-    area: 200,
-    imagem: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600&q=80',
+    tipo: 'Sítio',
+    status: 'Venda',
+    titulo: 'Sítio com Casa e Pomar',
+    bairro: 'Estrada Velha',
+    cidade: 'Toledo - MG',
+    preco: 560000,
+    area: 50000,
+    diferenciais: ['Com escritura', 'Aceita financiamento'],
+    imagem: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80',
     destaque: false,
   },
   {
     id: 6,
-    tipo: 'Apartamento',
-    status: 'Venda',
-    titulo: 'Apartamento na Paulista',
-    bairro: 'Bela Vista',
-    cidade: 'São Paulo',
-    preco: 620000,
-    quartos: 2,
-    banheiros: 1,
-    vagas: 1,
-    area: 75,
-    imagem: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600&q=80',
+    tipo: 'Casa',
+    status: 'Aluguel',
+    titulo: 'Casa para Alugar no Bairro São João',
+    bairro: 'São João',
+    cidade: 'Toledo - MG',
+    preco: 900,
+    area: 90,
+    diferenciais: [],
+    imagem: 'https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?w=600&q=80',
     destaque: false,
   },
 ]
+
+const tipos = ['Todos', 'Casa', 'Terreno', 'Lote', 'Chácara', 'Sítio']
 
 function formatPreco(preco: number, status: string) {
   if (status === 'Aluguel') {
@@ -107,15 +97,25 @@ function formatPreco(preco: number, status: string) {
   return `R$ ${preco.toLocaleString('pt-BR')}`
 }
 
+function formatArea(area: number) {
+  if (area >= 10000) return `${(area / 10000).toFixed(1)} ha`
+  return `${area.toLocaleString('pt-BR')} m²`
+}
+
 export default function Imoveis() {
-  const [filtro, setFiltro] = useState<'Todos' | 'Venda' | 'Aluguel'>('Todos')
+  const [filtro, setFiltro] = useState('Todos')
+  const [finalidade, setFinalidade] = useState<'Todos' | 'Venda' | 'Aluguel'>('Todos')
   const [favoritos, setFavoritos] = useState<number[]>([])
 
   const toggleFavorito = (id: number) => {
     setFavoritos((prev) => prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id])
   }
 
-  const filtered = filtro === 'Todos' ? imoveis : imoveis.filter((i) => i.status === filtro)
+  const filtered = imoveis.filter((i) => {
+    if (filtro !== 'Todos' && i.tipo !== filtro) return false
+    if (finalidade !== 'Todos' && i.status !== finalidade) return false
+    return true
+  })
 
   const scrollContato = () => {
     const el = document.getElementById('contato')
@@ -128,25 +128,41 @@ export default function Imoveis() {
         <div className="text-center mb-10">
           <p className="text-accent font-semibold text-sm uppercase tracking-widest mb-2">Portfólio</p>
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-3">
-            Nossos Imóveis
+            Imóveis Disponíveis
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
-            Encontre o imóvel perfeito para você. Selecionamos as melhores opções do mercado.
+            Terrenos, chácaras, sítios e casas em Toledo MG e cidades da região.
           </p>
         </div>
 
         {/* Filtros */}
-        <div className="flex justify-center gap-2 mb-8">
+        <div className="flex flex-wrap gap-2 justify-center mb-4">
           {(['Todos', 'Venda', 'Aluguel'] as const).map((f) => (
             <Button
               key={f}
-              variant={filtro === f ? 'default' : 'outline'}
+              variant={finalidade === f ? 'default' : 'outline'}
               size="sm"
-              onClick={() => setFiltro(f)}
-              className={filtro === f ? 'bg-primary text-primary-foreground' : ''}
+              onClick={() => setFinalidade(f)}
+              className={finalidade === f ? 'bg-primary text-primary-foreground' : ''}
             >
               {f}
             </Button>
+          ))}
+        </div>
+
+        <div className="flex flex-wrap gap-2 justify-center mb-8">
+          {tipos.map((t) => (
+            <button
+              key={t}
+              onClick={() => setFiltro(t)}
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
+                filtro === t
+                  ? 'bg-accent text-accent-foreground border-accent'
+                  : 'border-border text-muted-foreground hover:border-accent hover:text-foreground'
+              }`}
+            >
+              {t}
+            </button>
           ))}
         </div>
 
@@ -158,7 +174,7 @@ export default function Imoveis() {
               className="overflow-hidden hover:shadow-xl transition-shadow duration-300 group border-border"
             >
               {/* Imagem */}
-              <div className="relative h-52 overflow-hidden">
+              <div className="relative h-48 overflow-hidden">
                 <img
                   src={imovel.imagem}
                   alt={imovel.titulo}
@@ -183,40 +199,47 @@ export default function Imoveis() {
                     className={favoritos.includes(imovel.id) ? 'fill-red-500 text-red-500' : 'text-muted-foreground'}
                   />
                 </button>
+                {/* Tipo badge */}
+                <div className="absolute bottom-3 left-3">
+                  <span className="bg-card/90 backdrop-blur-sm text-foreground text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
+                    <Tag size={11} />
+                    {imovel.tipo}
+                  </span>
+                </div>
               </div>
 
               <CardContent className="p-4">
-                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">{imovel.tipo}</div>
                 <h3 className="font-semibold text-foreground mb-1 leading-snug">{imovel.titulo}</h3>
                 <div className="flex items-center gap-1 text-muted-foreground text-xs mb-3">
                   <MapPin size={12} />
                   {imovel.bairro}, {imovel.cidade}
                 </div>
 
-                {/* Características */}
-                <div className="flex items-center gap-4 text-xs text-muted-foreground border-y border-border py-3 mb-3">
-                  <span className="flex items-center gap-1">
-                    <Bed size={13} />
-                    {imovel.quartos} qts
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Bath size={13} />
-                    {imovel.banheiros} ban
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Car size={13} />
-                    {imovel.vagas} vaga{imovel.vagas > 1 ? 's' : ''}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Maximize size={13} />
-                    {imovel.area}m²
-                  </span>
+                {/* Área */}
+                <div className="flex items-center gap-1 text-xs text-muted-foreground border-y border-border py-2.5 mb-3">
+                  <Maximize size={13} />
+                  <span>{formatArea(imovel.area)}</span>
                 </div>
+
+                {/* Diferenciais */}
+                {imovel.diferenciais.length > 0 && (
+                  <div className="flex flex-wrap gap-1 mb-3">
+                    {imovel.diferenciais.map((d) => (
+                      <span
+                        key={d}
+                        className="flex items-center gap-0.5 text-xs text-accent font-medium bg-accent/10 px-2 py-0.5 rounded-full"
+                      >
+                        <CheckCircle size={10} />
+                        {d}
+                      </span>
+                    ))}
+                  </div>
+                )}
 
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="text-xs text-muted-foreground">
-                      {imovel.status === 'Aluguel' ? 'Aluguel' : 'Preço'}
+                      {imovel.status === 'Aluguel' ? 'Aluguel' : 'Valor'}
                     </div>
                     <div className="text-lg font-bold text-accent">
                       {formatPreco(imovel.preco, imovel.status)}
@@ -235,6 +258,12 @@ export default function Imoveis() {
             </Card>
           ))}
         </div>
+
+        {filtered.length === 0 && (
+          <div className="text-center py-12 text-muted-foreground">
+            Nenhum imóvel encontrado com os filtros selecionados.
+          </div>
+        )}
       </div>
     </section>
   )
