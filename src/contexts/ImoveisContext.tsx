@@ -79,6 +79,12 @@ export function ImoveisProvider({ children }: { children: ReactNode }) {
 
   const carregarImoveis = async () => {
     try {
+      if (!supabase) {
+        console.warn('Supabase não configurado')
+        setLoading(false)
+        return
+      }
+
       const { data, error } = await supabase
         .from('imoveis')
         .select('*')
@@ -105,6 +111,7 @@ export function ImoveisProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const addImovel = async (imovel: Omit<Imovel, 'id' | 'createdAt'>) => {
+    if (!supabase) throw new Error('Supabase não configurado')
     const { data, error } = await supabase
       .from('imoveis')
       .insert(toSupabase(imovel))
@@ -136,6 +143,7 @@ export function ImoveisProvider({ children }: { children: ReactNode }) {
     if (updates.urgencia !== undefined) supabaseUpdates.urgencia = updates.urgencia
     if (updates.diferenciais !== undefined) supabaseUpdates.diferenciais = updates.diferenciais
 
+    if (!supabase) throw new Error('Supabase não configurado')
     const { data, error } = await supabase
       .from('imoveis')
       .update(supabaseUpdates)
@@ -150,6 +158,7 @@ export function ImoveisProvider({ children }: { children: ReactNode }) {
   }
 
   const deleteImovel = async (id: string) => {
+    if (!supabase) throw new Error('Supabase não configurado')
     const { error } = await supabase.from('imoveis').delete().eq('id', id)
     if (error) throw error
     setImoveis((prev) => prev.filter((i) => i.id !== id))
