@@ -123,8 +123,8 @@ export default function FormImovel() {
   const adicionarImagem = () => {
     const url = novaImagem.trim()
     if (!url) return
-    if (form.imagens.length >= 30) {
-      toast.error('Máximo de 30 imagens por imóvel')
+    if (form.imagens.length >= 50) {
+      toast.error('Máximo de 50 imagens por imóvel')
       return
     }
     set('imagens', [...form.imagens, url])
@@ -153,7 +153,7 @@ export default function FormImovel() {
     }
 
     const arquivos = Array.from(files)
-    const limite = 30 - form.imagens.length
+    const limite = 50 - form.imagens.length
     if (arquivos.length > limite) {
       toast.error(`Você pode adicionar no máximo ${limite} imagem(ns) mais`)
       return
@@ -451,7 +451,7 @@ export default function FormImovel() {
             <CardHeader className="pb-3">
               <CardTitle className="text-base flex items-center gap-2">
                 <ImagePlus size={16} className="text-accent" />
-                Imagens ({form.imagens.length}/30)
+                Imagens ({form.imagens.length}/50)
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -468,7 +468,7 @@ export default function FormImovel() {
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
-                  disabled={uploadando || form.imagens.length >= 30}
+                  disabled={uploadando || form.imagens.length >= 50}
                   className="w-full flex flex-col items-center justify-center gap-2 p-6 rounded-lg border-2 border-dashed border-border hover:border-accent hover:bg-accent/5 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {uploadando ? (
