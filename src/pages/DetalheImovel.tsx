@@ -18,7 +18,6 @@ function formatPreco(preco: number, finalidade: string) {
 }
 
 function formatArea(area: number) {
-  if (area >= 10000) return `${(area / 10000).toFixed(2).replace('.', ',')} hectares (${area.toLocaleString('pt-BR')} m²)`
   return `${area.toLocaleString('pt-BR')} m²`
 }
 
