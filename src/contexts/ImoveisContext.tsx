@@ -19,6 +19,14 @@ export interface Imovel {
   createdAt: number
 }
 
+export interface FiltrosBusca {
+  finalidade: 'Comprar' | 'Alugar' | 'Todos'
+  tipo: string
+  cidade: string
+  bairro: string
+  diferenciais: string[]
+}
+
 interface ImoveisContextType {
   imoveis: Imovel[]
   loading: boolean
@@ -27,6 +35,8 @@ interface ImoveisContextType {
   deleteImovel: (id: string) => Promise<void>
   getImovel: (id: string) => Imovel | undefined
   recarregar: () => Promise<void>
+  filtrosBusca: FiltrosBusca
+  setFiltrosBusca: (filtros: FiltrosBusca) => void
 }
 
 const ImoveisContext = createContext<ImoveisContextType | undefined>(undefined)
@@ -76,6 +86,13 @@ function toSupabase(imovel: Omit<Imovel, 'id' | 'createdAt'>) {
 export function ImoveisProvider({ children }: { children: ReactNode }) {
   const [imoveis, setImoveis] = useState<Imovel[]>([])
   const [loading, setLoading] = useState(true)
+  const [filtrosBusca, setFiltrosBusca] = useState<FiltrosBusca>({
+    finalidade: 'Todos',
+    tipo: 'Todos',
+    cidade: 'Todas as cidades',
+    bairro: '',
+    diferenciais: [],
+  })
 
   const carregarImoveis = async () => {
     try {
@@ -167,7 +184,7 @@ export function ImoveisProvider({ children }: { children: ReactNode }) {
   const getImovel = (id: string) => imoveis.find((i) => i.id === id)
 
   return (
-    <ImoveisContext.Provider value={{ imoveis, loading, addImovel, updateImovel, deleteImovel, getImovel, recarregar: carregarImoveis }}>
+    <ImoveisContext.Provider value={{ imoveis, loading, addImovel, updateImovel, deleteImovel, getImovel, recarregar: carregarImoveis, filtrosBusca, setFiltrosBusca }}>
       {children}
     </ImoveisContext.Provider>
   )

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Search, Home, Building2, CheckCircle, MessageCircle, MapPin, ArrowRight, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { useImoveis } from '@/contexts/ImoveisContext'
 
 const tiposImovel = ['Todos', 'Casa', 'Terreno', 'Terreno 20.000 m²', 'Lote', 'Loteamento', 'Chácara', 'Sítio']
 
@@ -25,6 +26,7 @@ const cidades = [
 ]
 
 export default function Hero() {
+  const { setFiltrosBusca } = useImoveis()
   const [finalidade, setFinalidade] = useState<'Comprar' | 'Alugar'>('Comprar')
   const [tipo, setTipo] = useState('Todos')
   const [cidade, setCidade] = useState('Todas as cidades')
@@ -38,6 +40,7 @@ export default function Hero() {
   }
 
   const handleBuscar = () => {
+    setFiltrosBusca({ finalidade, tipo, cidade, bairro, diferenciais })
     const el = document.getElementById('imoveis')
     if (el) el.scrollIntoView({ behavior: 'smooth' })
   }

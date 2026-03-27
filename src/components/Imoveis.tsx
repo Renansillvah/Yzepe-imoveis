@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { MapPin, Maximize, Heart, Phone, CheckCircle, Tag, ArrowRight, MessageCircle, Eye, Star, AlertTriangle } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
@@ -19,15 +19,22 @@ function formatPreco(preco: number, finalidade: string) {
 }
 
 function formatArea(area: number) {
-  if (area >= 10000) return `${(area / 10000).toFixed(1)} ha`
+  if (area >= 10000) return `${(area / 10000).toFixed(2).replace('.', ',')} hectares (${area.toLocaleString('pt-BR')} m²)`
   return `${area.toLocaleString('pt-BR')} m²`
 }
 
 export default function Imoveis() {
-  const { imoveis, loading } = useImoveis()
+  const { imoveis, loading, filtrosBusca } = useImoveis()
   const [filtro, setFiltro] = useState('Todos')
   const [finalidade, setFinalidade] = useState<'Todos' | 'Venda' | 'Aluguel'>('Todos')
   const [favoritos, setFavoritos] = useState<string[]>([])
+
+  // Sincronizar com filtros da busca do Hero
+  useEffect(() => {
+    if (filtrosBusca.tipo !== 'Todos') setFiltro(filtrosBusca.tipo)
+    if (filtrosBusca.finalidade === 'Comprar') setFinalidade('Venda')
+    else if (filtrosBusca.finalidade === 'Alugar') setFinalidade('Aluguel')
+  }, [filtrosBusca])
 
   const toggleFavorito = (id: string) => {
     setFavoritos((prev) => prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id])
@@ -41,8 +48,17 @@ export default function Imoveis() {
   ]
 
   const filtered = ordenados.filter((i) => {
+    // Filtro de tipo (botões locais)
     if (filtro !== 'Todos' && i.tipo !== filtro) return false
+    // Filtro de finalidade (botões locais)
     if (finalidade !== 'Todos' && i.finalidade !== finalidade) return false
+    // Filtros vindos do Hero
+    if (filtrosBusca.cidade !== 'Todas as cidades' && i.cidade !== filtrosBusca.cidade) return false
+    if (filtrosBusca.bairro && !i.bairro.toLowerCase().includes(filtrosBusca.bairro.toLowerCase())) return false
+    if (filtrosBusca.diferenciais.length > 0) {
+      const temTodos = filtrosBusca.diferenciais.every((d) => i.diferenciais.includes(d))
+      if (!temTodos) return false
+    }
     return true
   })
 

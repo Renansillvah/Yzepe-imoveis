@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import {
@@ -18,7 +18,7 @@ function formatPreco(preco: number, finalidade: string) {
 }
 
 function formatArea(area: number) {
-  if (area >= 10000) return `${(area / 10000).toFixed(1)} ha`
+  if (area >= 10000) return `${(area / 10000).toFixed(2).replace('.', ',')} hectares (${area.toLocaleString('pt-BR')} m²)`
   return `${area.toLocaleString('pt-BR')} m²`
 }
 
@@ -27,6 +27,10 @@ export default function DetalheImovel() {
   const navigate = useNavigate()
   const { getImovel, imoveis } = useImoveis()
   const [imgAtiva, setImgAtiva] = useState(0)
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }, [id])
 
   const imovel = id ? getImovel(id) : undefined
 
