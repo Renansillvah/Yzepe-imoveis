@@ -21,8 +21,8 @@ export default function Header() {
   return (
     <header className="w-full">
       {/* Main nav */}
-      <div className={`bg-card sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'shadow-lg border-b border-border' : 'shadow-sm'}`}>
-        <div className="max-w-7xl mx-auto px-4 h-48 flex items-center justify-between">
+      <div className={`bg-card sticky top-0 z-50 transition-all duration-300 overflow-visible ${scrolled ? 'shadow-lg border-b border-border' : 'shadow-sm'}`}>
+        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between overflow-visible">
           {/* Logo */}
           <div className="flex items-center cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <img
