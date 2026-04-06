@@ -13,9 +13,9 @@ export default function Footer() {
           {/* Logo e descrição */}
           <div className="md:col-span-5">
             <img
-              src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/1db82708-e438-45d8-8291-2da28cbd784a.png"
+              src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/d103dfd1-af19-4a79-91b1-fb784db07586.jpeg"
               alt="Yzepe Imóveis"
-              className="h-28 w-auto object-contain mb-5 brightness-0 invert"
+              className="h-40 w-auto object-contain mb-5"
             />
             <p className="text-primary-foreground/60 text-sm leading-relaxed max-w-xs mb-6">
               Especialistas em terrenos, chácaras, sítios e imóveis residenciais em Toledo MG e toda a região sul de Minas Gerais.
