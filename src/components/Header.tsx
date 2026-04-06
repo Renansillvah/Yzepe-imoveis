@@ -22,15 +22,14 @@ export default function Header() {
     <header className="w-full">
       {/* Main nav */}
       <div className={`bg-card sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'shadow-lg border-b border-border' : 'shadow-sm'}`}>
-        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center cursor-pointer relative" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <div className="flex items-center cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <img
               src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/d103dfd1-af19-4a79-91b1-fb784db07586.jpeg"
               alt="Yzepe Imóveis"
-              style={{ height: '320px', width: 'auto', objectFit: 'contain', position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: 0 }}
+              className="h-14 w-auto object-contain"
             />
-            <div style={{ width: '320px', height: '16px' }} />
           </div>
 
           {/* Desktop nav */}
