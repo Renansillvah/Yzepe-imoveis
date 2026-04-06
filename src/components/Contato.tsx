@@ -53,9 +53,9 @@ export default function Contato() {
           <div className="lg:col-span-2 space-y-5">
             <div>
               <img
-                src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/0ab4133d-ae3f-4eae-ac88-a0615e50bef4.png"
+                src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/20d57a41-edd4-4d4f-8d15-c30fa16342ff.png"
                 alt="Yzepe Imóveis"
-                className="h-14 w-auto object-cover object-top mb-4"
+                className="h-14 w-auto object-contain object-top mb-4"
               />
             </div>
 
@@ -75,7 +75,7 @@ export default function Contato() {
               {
                 icon: MapPin,
                 titulo: 'Localização',
-                valor: 'Toledo - MG · Atendemos toda região',
+                valor: 'Rua São Judas Tadeu, 221 · Bairro Jardim Bom Jesus · Toledo MG',
                 link: null,
               },
             ].map((item) => {

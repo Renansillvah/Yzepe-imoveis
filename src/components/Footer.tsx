@@ -13,9 +13,9 @@ export default function Footer() {
           {/* Logo e descrição */}
           <div className="md:col-span-5">
             <img
-              src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/0ab4133d-ae3f-4eae-ac88-a0615e50bef4.png"
+              src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/20d57a41-edd4-4d4f-8d15-c30fa16342ff.png"
               alt="Yzepe Imóveis"
-              className="h-40 w-auto object-cover object-top mb-5"
+              className="h-28 w-auto object-contain object-top mb-5"
             />
             <p className="text-primary-foreground/60 text-sm leading-relaxed max-w-xs mb-6">
               Especialistas em terrenos, chácaras, sítios e imóveis residenciais em Toledo MG e toda a região sul de Minas Gerais.
@@ -81,7 +81,7 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-2.5 text-primary-foreground/60 text-sm">
                 <MapPin size={14} className="mt-0.5 flex-shrink-0 text-accent" />
-                <span>Toledo - MG<br /><span className="text-xs opacity-70">Atendemos toda a região</span></span>
+                <span>Rua São Judas Tadeu, 221<br />Bairro Jardim Bom Jesus<br /><span className="text-xs opacity-70">Toledo - MG</span></span>
               </li>
             </ul>
           </div>

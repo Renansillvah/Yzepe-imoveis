@@ -22,13 +22,13 @@ export default function Header() {
     <header className="w-full">
       {/* Main nav */}
       <div className={`bg-card sticky top-0 z-50 transition-all duration-300 overflow-visible ${scrolled ? 'shadow-lg border-b border-border' : 'shadow-sm'}`}>
-        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between overflow-visible">
+        <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between overflow-visible">
           {/* Logo */}
           <div className="flex items-center cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <img
-              src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/0ab4133d-ae3f-4eae-ac88-a0615e50bef4.png"
+              src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/20d57a41-edd4-4d4f-8d15-c30fa16342ff.png"
               alt="Yzepe Imóveis"
-              className="h-44 w-auto object-cover object-top"
+              className="h-16 w-auto object-contain object-top"
             />
           </div>
 
