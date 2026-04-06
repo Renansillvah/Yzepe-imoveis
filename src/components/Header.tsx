@@ -26,9 +26,9 @@ export default function Header() {
           {/* Logo */}
           <div className="flex items-center cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <img
-              src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/20d57a41-edd4-4d4f-8d15-c30fa16342ff.png"
+              src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/0ac529e8-fa4a-42d7-b961-66de8dc5e3fa.png"
               alt="Yzepe Imóveis"
-              className="h-16 w-auto object-contain object-top"
+              className="h-16 w-auto object-contain"
             />
           </div>
 
