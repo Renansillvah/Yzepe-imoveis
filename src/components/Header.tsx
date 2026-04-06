@@ -26,10 +26,9 @@ export default function Header() {
           {/* Logo */}
           <div className="flex items-center cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <img
-              src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/d103dfd1-af19-4a79-91b1-fb784db07586.jpeg"
+              src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/0ab4133d-ae3f-4eae-ac88-a0615e50bef4.png"
               alt="Yzepe Imóveis"
-              className="h-44 w-auto object-contain"
-              style={{ mixBlendMode: 'multiply' }}
+              className="h-44 w-auto object-cover object-top"
             />
           </div>
 

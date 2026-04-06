@@ -53,9 +53,9 @@ export default function Contato() {
           <div className="lg:col-span-2 space-y-5">
             <div>
               <img
-                src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/750e9e48-8561-4ea5-92e0-a52b75fca13c.png"
+                src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/0ab4133d-ae3f-4eae-ac88-a0615e50bef4.png"
                 alt="Yzepe Imóveis"
-                className="h-14 w-auto object-contain mb-4"
+                className="h-14 w-auto object-cover object-top mb-4"
               />
             </div>
 
@@ -69,8 +69,8 @@ export default function Contato() {
               {
                 icon: Mail,
                 titulo: 'E-mail',
-                valor: 'contato@yzepeimoveis.com.br',
-                link: 'mailto:contato@yzepeimoveis.com.br',
+                valor: 'yzepeimoveis@outlook.com',
+                link: 'mailto:yzepeimoveis@outlook.com',
               },
               {
                 icon: MapPin,

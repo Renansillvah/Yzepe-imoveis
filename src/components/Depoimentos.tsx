@@ -12,14 +12,14 @@ const depoimentos = [
     nome: 'Ana Paula Silva',
     texto: 'Comprei minha chácara com a Yzepe Imóveis e foi uma experiência incrível. Eles cuidaram de toda a documentação e me deixaram tranquila em cada etapa.',
     nota: 5,
-    imovel: 'Chácara - Zona Rural, Toledo MG',
+    imovel: 'Chácara - Bairro Campestre, Toledo MG',
     inicial: 'A',
   },
   {
     nome: 'Roberto Fernandes',
     texto: 'Já é a segunda vez que faço negócio com eles. Sempre transparentes, rápidos e com ótimas opções. Indico para todos os meus amigos e familiares.',
     nota: 5,
-    imovel: 'Casa - Bairro São João, Toledo MG',
+    imovel: 'Casa - Bairro dos Pereiras, Toledo MG',
     inicial: 'R',
   },
 ]

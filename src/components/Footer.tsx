@@ -13,9 +13,9 @@ export default function Footer() {
           {/* Logo e descrição */}
           <div className="md:col-span-5">
             <img
-              src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/d103dfd1-af19-4a79-91b1-fb784db07586.jpeg"
+              src="https://pub-c0bfb119504542e0b2e6ebc8f6b3b1df.r2.dev/user-uploads/user_37oySykXrlZ5YXKyzjL0vXOVtjM/0ab4133d-ae3f-4eae-ac88-a0615e50bef4.png"
               alt="Yzepe Imóveis"
-              className="h-40 w-auto object-contain mb-5"
+              className="h-40 w-auto object-cover object-top mb-5"
             />
             <p className="text-primary-foreground/60 text-sm leading-relaxed max-w-xs mb-6">
               Especialistas em terrenos, chácaras, sítios e imóveis residenciais em Toledo MG e toda a região sul de Minas Gerais.
@@ -74,9 +74,9 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="mailto:contato@yzepeimoveis.com.br" className="flex items-start gap-2.5 text-primary-foreground/60 hover:text-accent transition-colors text-sm">
+                <a href="mailto:yzepeimoveis@outlook.com" className="flex items-start gap-2.5 text-primary-foreground/60 hover:text-accent transition-colors text-sm">
                   <Mail size={14} className="mt-0.5 flex-shrink-0 text-accent" />
-                  contato@yzepeimoveis.com.br
+                  yzepeimoveis@outlook.com
                 </a>
               </li>
               <li className="flex items-start gap-2.5 text-primary-foreground/60 text-sm">
